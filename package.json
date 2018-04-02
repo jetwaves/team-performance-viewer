@@ -1,0 +1,50 @@
+{
+  "name": "team-performance-viewer",
+  "version": "0.0.1",
+  "description": "A web GUI to visulize team-performance history database",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node --harmony ./web-viewer/bin/www"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jetwaves/team-performance-viewer.git"
+  },
+  "keywords": [
+    "web",
+    "GUI",
+    "expressjs",
+    "nodejs",
+    "team",
+    "performance",
+    "git",
+    "log",
+    "commit",
+    "history"
+  ],
+  "author": "jetwaves <jetwaves@qq.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jetwaves/team-performance-viewer/issues"
+  },
+  "homepage": "https://github.com/jetwaves/team-performance-viewer#readme",
+  "dependencies": {
+    "async": "^2.6.0",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "ejs": "~2.5.7",
+    "express": "~4.16.0",
+    "http-errors": "~1.6.2",
+    "json-bigint": "^0.2.3",
+    "lodash": "^4.17.5",
+    "log4js": "^2.5.3",
+    "moment": "^2.22.0",
+    "mongodb": "^3.0.5",
+    "morgan": "~1.9.0",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "promise": "^8.0.1",
+    "sha1": "^1.1.1"
+  }
+}
