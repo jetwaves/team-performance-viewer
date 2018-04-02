@@ -3,16 +3,24 @@
 /**
  * Module dependencies.
  */
+process.env.TZ = 'GMT+8';
 
 var app = require('../app');
 var debug = require('debug')('web-viewer:server');
 var http = require('http');
+var chalk = require('chalk');
+
+sysConf = require('../config/config.js');
+
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+// var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(sysConf.app_port || '3000');
+console.log(chalk.bgGreen('      App Listening port : ' + port + '      ') );
+
 app.set('port', port);
 
 /**
