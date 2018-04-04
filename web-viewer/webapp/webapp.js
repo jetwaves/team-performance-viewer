@@ -17,7 +17,7 @@ require.config({
         'ngSanitize'             : '../fe/angular-sanitize/angular-sanitize.min',
         'ngToastr'               : '../fe/angular-toastr/dist/angular-toastr.tpls.min',
         'ngUiBs'                 : '../fe/angular-bootstrap/ui-bootstrap-tpls.min',
-        'ocLazyLoad'             : '../fe/oclazyload/dist/ocLazyLoad.require.min',
+        'ocLazyLoad'             : '../fe/oclazyload/dist/ocLazyLoad.require.min'
 
 
         // 'angularDragAndDropLists': '../js/angularDragAndDropLists/angular-drag-and-drop-lists',
@@ -40,11 +40,14 @@ require.config({
             'ngToastr',
             'ngUiBs',
             'ocLazyLoad',
+            'ngCookies'
             // 'angularDragAndDropLists','angularFileUpload','angularUeditor','ngCookies','ngGrid',
             // 'ngTree','highcharts-ng','Highcharts','ueditor','ueditorConfig'
         ],
         'dateTimePicker'         : ['ngUiBs'],
-        'angular'                : { exports: "angular"},
+        'angular'                : {
+            exports: "angular"
+        },
         'amMoment'               : ['angular'],
         'ngAnimate'              : ['ngRoute'],
         'ngCheckbox'             : ['angular'],
@@ -56,7 +59,7 @@ require.config({
         'ngSanitize'             : ['angular'],
         'ngToastr'               : ['angular'],
         'ngUiBs'                 : ['ngAnimate','ngLocale'],
-        'ocLazyLoad'             : ['angular'],
+        'ocLazyLoad'             : ['angular']
         // 'angularDragAndDropLists': ['angular','ngRoute'],
         // 'angularFileUpload'      : ['angular'],
         // 'angularUeditor'         : ['angular'],
