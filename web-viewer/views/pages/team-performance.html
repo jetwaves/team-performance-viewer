@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>team-perfomance-viewer</title>
+    <!-- js -->
+    <script src="/fe/jshashes/hashes.min.js"></script>
+    <script src="/public/javascripts/jquery-1.9.1.min.js"></script>
+
+    <script src="/public/javascripts/jquery.freezeheader.js"></script>
+    <!--<script src="/js/qs/querystring.min.js"></script> &lt;!&ndash; 用于querystring查询的编码解码 &ndash;&gt;-->
+    <script type="text/javascript" data-main="webapp/webapp" src="/public/javascripts/require.min.js" charset="UTF8"></script>
+
+    <!-- css -->
+    <link  href="/public/stylesheets/bootstrap.min.css" rel="stylesheet">
+    <link  href="/public/stylesheets/style.css" rel="stylesheet">
+
+    <!--<link rel="stylesheet" type="text/css" href="/ngTree/css/tree-control.css">-->
+    <!--<link rel="stylesheet" type="text/css" href="/ngTree/css/tree-control-attribute.css">&lt;!&ndash; 树形结构控件 &ndash;&gt;-->
+
+
+</head>
+<body class="indexBg" ng-controller="layoutController" id="panel" ng-cloak>
+
+<!-- 顶部 -->
+<header class="headStyle" style="background-size:100%">
+    <div class="logoRight">
+        <!--<div id="env" style="display:none"><  %  =env  %  ></div>-->
+        <!--<a class="popText" style=" padding:5px; padding-top:20px; height:20px; line-height:20px; color:#fff; text-decoration: none;">
+            [<  %  =  user.role_name  %  > : <  %  =user.name  %  >]
+        </a>-->
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <i class="glyphicon glyphicon-off"></i> <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a class="btn" ng-click="showResetPassword()">修改密码</a></li>
+                <li><a class="btn" href="/Users/exit">退出登录</a></li>
+                <li role="separator" class="divider"></li>
+            </ul>
+        </li>
+    </div>
+    <div class="backlog" ng-if="menu_userRights.index_back_log_info">
+        <div class="dropdown">
+            <span class="glyphicon glyphicon-refresh" ng-click="getBackLogInfo()" style="cursor: pointer;"></span>&nbsp;&nbsp;
+            <label class="dropdown-toggle"  id="backlog-dropdownMenu" style="cursor: pointer;" data-toggle="dropdown">
+                待办事项&nbsp;&nbsp;(<span style="color: #fff;">{{backLogInfo.count}}</span>)
+                <span class="caret"></span>
+            </label>
+            <ul class="dropdown-menu">
+                <li class="back-log-li" ng-repeat="item in backLogInfo.data" ng-click="readBackLogInfo(item.name)">
+                    <div class="col-sm-9" style="text-align: left;color: #333333;height: 35px; line-height: 35px;overflow: hidden;">
+                        <label style="cursor: pointer;">{{item.name}}</label>
+                    </div>
+                    <div class="col-sm-3" style="text-align: right;color: #f00;height: 35px; line-height: 35px;">
+                        {{item.count}}
+                    </div>
+                    <div style="clear: both;"></div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div style="clear: both;"></div>
+</header>
+<h1>hhhhhhhhhhhhhh</h1>
+<!--&lt;!&ndash; 边栏(菜单栏) &ndash;&gt;-->
+<!--<div ng-include="'/nav'" id="header"></div>-->
+<!--&lt;!&ndash; 内容区域 &ndash;&gt;-->
+<!--<div class="WorkbenchMain" id="content">-->
+    <!--<div ng-include="'/Workbench'"></div>-->
+<!--</div>-->
+</body>
+<script>
+
+
+
+
+</script>
+
+
+</html>

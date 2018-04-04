@@ -3,10 +3,10 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var path = require('path');
 
 
-
-
+var moment = require('moment');
 
 
 var indexRouter = require('./routes/index');
@@ -71,12 +71,29 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
+// app.use(express.static(path.join(__dirname, 'public')));
+
+
+
+app.use('/public', express.static(__dirname + '/public'));                        // 映射public 目录
+// var fePath = path.join( __dirname, 'bower_components');
+// app.use('/fe', express.static(path.join( __dirname, 'bower_components')) ); // 映射Bower 静态目录
+app.use('/fe', express.static(path.join( path.dirname(__dirname), 'bower_components')) ); // 映射Bower 静态目录
+app.use('/vc', express.static(path.join( __dirname, 'webapp', 'vc')) );           // 映射Vuejs controller 静态目录
+app.use('/webapp', express.static(path.join( __dirname, 'webapp')) );           // 映射Vuejs controller 静态目录
+
+app.use('/webapp/moment.js', express.static(path.join( path.dirname(__dirname), 'bower_components','moment','min','moment.min.js')) ); // 映射Bower 静态目录
+app.use('/webapp/angular-sanitize.js', express.static(path.join( path.dirname(__dirname), 'bower_components','angular-sanitize','angular-sanitize.min.js')) ); // 映射Bower 静态目录
+
+
+
+
+// app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 
+app.use('/', pagesRouter);
 app.use('/pages', pagesRouter);
 
 

@@ -1,8 +1,642 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+*{
+    font-family: 'Microsoft Yahei';
+}
+html,body{
+    padding: 0px;
+    margin: 0px;
+    font-family: inherit;
+}
+#header{
+    /**/
+}
+.clearfix{*zoom:1}
+.clearfix:before,.clearfix:after{
+  content: "";
+  display:table;
+  visibility:hidden;
+  height: 0;
+  clear: both;  
+  content:"";
 }
 
-a {
-  color: #00B7FF;
+.indexBg {
+    /*background-color: #ccc;*/
+    /*position:relative;*/
+
+}
+
+.loading {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 500px;
+    z-index: 9999;
+}
+
+.loading img {
+    width: 32px;
+    height: 32px;
+    margin: 280px auto;
+    display: block;
+    text-align: center;
+
+
+}
+
+.headStyle {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+    height: 90px;
+    background-color: #40a6e8;
+    color: #fff;
+    background:url('../images/logo.jpg') no-repeat scroll left;
+}
+.backlog{
+    float: right;
+    width: 150px;
+    padding-top: 30px;
+    margin-right: 50px;
+}
+
+.logoRight {
+    padding-right: 10px;
+    height: 30px;
+    padding-top: 30px;
+    float: right;
+    color: #fff;
+}
+/*卡片面板样式 changed by Hisheng*/
+div.tabs-board uib-tab-heading{
+    // position: fixed;
+}
+ul.nav-tabs div.tab-item{
+    padding: 8px 10px;
+}
+ul.nav-tabs div.tab-item span.tab-item-name{
+    padding-right: 5px; 
+}
+ul.nav-tabs li a{
+    padding: 0;
+    text-decoration: none;
+    color: #666;
+}
+ul.nav-tabs li a:hover{
+    padding: 0;
+    text-decoration: none;
+    color: #555;
+}
+
+
+.sidebar {
+    position: fixed;
+    left: 0px;
+    bottom: 0px;
+    top: 90px;
+    width: 120px;
+    color: #fff;
+    z-index: 9999;
+    background-color: #32323a;
+    border-right: 1px solid #202126;
+    padding: 0;
+    margin: 0;
+}
+
+/* .sidebarbg {
+    position: fixed;
+    left: 0px;
+    bottom: 0px;
+    top: 0px;
+    width: 120px;
+    background-color: #32323a;
+    border-right: 1px solid #202126;
+    padding: 0;
+    margin: 0;
+    z-index: -1;
+    //background-color: #32323a;
+    background-color: #378752;
+    border-right: 1px solid #202126;
+} */
+
+.sidebar li {
+    float: left;
+    width: 120px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    cursor: pointer;
+    border-top: 1px solid #393941;
+    list-style:none;
+    position: relative;
+    color:#a1abb4;
+}
+
+.sidebar li:hover {
+    background-color: #47ab6b;
+    color: #fcffff;
+}
+
+.posDl {
+    position: absolute;
+    left: 120px;
+    top: 0px;
+    // background-color: #1fb5ac;
+    background-color: #47ab6b;
+    //background-color: #32323a;
+    color: #fcffff;
+    padding: 10px;
+    width: 550px;
+    cursor: default;
+    z-index: 9999;
+}
+
+.posDl dl {
+    border-bottom: 0px dashed #fff;
+}
+
+.posDl dt {
+    float: left;
+    height: 30px;
+    line-height: 30px;
+    width: 80px;
+}
+
+.ddList {
+    margin-left: 80px;
+}
+
+.posDl dd {
+    float: left;
+    height: 20px;
+    margin: 5px 5px;
+    border-left: 1px solid #ccc;
+    text-indent: 10px;
+    cursor: pointer;
+}
+
+.WorkbenchMain {
+    /* margin:10px 10px; */
+    margin-left: 130px;
+    margin-top: 100px;
+}
+
+.cls {
+    display:block;
+    white-space:nowrap; 
+    overflow:hidden; 
+    text-overflow:ellipsis;
+}
+/*modal dialog*/
+.modal-dialog .modal-content{
+    padding: 20px;
+}
+.modal-dialog .dialog-header .dialog-title{
+    text-align: center;
+}
+/**辅助类*/
+.m-top-10{
+    margin-top: 10px;
+}
+.m-bottom-10{
+    margin-bottom: 10px;
+}
+.m-left-10{
+    margin-left: 10px;
+}
+.m-right-10{
+    margin-right: 10px;
+}
+.m-top-20{
+    margin-top: 20px;
+}
+.m-bottom-20{
+    margin-bottom: 20px;
+}
+.m-left-20{
+    margin-left: 20px;
+}
+.m-right-20{
+    margin-right: 20px;
+}
+.center-panel{
+    margin: 0px 20px;
+}
+
+.defaultBtn {
+    background-color: #1fb5ac;
+    color:#fff;
+}
+
+.defaultBtn:hover {
+    color: #fff;
+}
+
+.defaultBtn:focus {
+    color: #fff;
+}
+
+.defaultBtn:active {
+    color: #fff;
+}
+
+/*浮动*/
+.f-left{
+    float: left;
+}
+.f-right{
+    float: right;
+}
+/**机构管理-角色配置 的样式*/
+.role-action-bar{
+    margin-top: 25px;
+    margin-left: -20px;
+}
+.role-list-panel .panel-body .row{
+    padding: 20px;
+}
+.role-list-panel .panel-footer .row{
+    padding: 20px;
+}
+#role table tbody tr{
+    cursor: pointer;
+}
+/**机构管理-人员档案 的样式*/
+.staff-list-panel .panel-body .row{
+    padding: 20px;
+}
+.staff-list-panel .panel-footer .row{
+    padding: 20px;
+}
+.staff-action-bar{
+    margin-left: 10px;
+}
+#staff table tbody tr{
+    cursor: pointer;
+}
+.ngdialog.ngdialog-theme-default.staff-add-dialog .ngdialog-content,
+.ngdialog.ngdialog-theme-default.staff-edit-dialog .ngdialog-content,
+.ngdialog.ngdialog-theme-default.bankAccount-add-dialog .ngdialog-content
+{
+    width: 800px;
+}
+.ngdialog.ngdialog-theme-default.dialog-width-xlg .ngdialog-content
+{
+    width: 1200px;
+}
+.ngdialog.ngdialog-theme-default.dialog-width-lg .ngdialog-content
+{
+    width: 1000px;
+}
+.ngdialog.ngdialog-theme-default.dialog-width-md .ngdialog-content
+{
+    width: 800px;
+}
+.ngdialog.ngdialog-theme-default.dialog-width-sm .ngdialog-content
+{
+    width: 500px;
+}
+/*弹窗样式*/
+/*把弹窗背景改为白色了，原来的实在难看 by Hisheng*/
+.ngdialog.ngdialog-theme-default .ngdialog-content{
+    background-color: #ffffff;
+}
+.dialog-title{
+    text-align: center;
+    font-weight: bold;
+}
+/*机构档案样式*/
+#store-archive table tbody tr{
+    cursor: pointer;
+}
+#store-archive .action-bar{
+    margin-left: 10px;
+}
+/*配送中心样式*/
+#warehouse table tbody tr{
+    cursor: pointer;
+}
+/*公司银行卡样式*/
+#bank table tbody tr{
+    cursor: pointer;
+}
+
+.zd-class {
+    text-indent: center;
+}
+
+.zd-class i {
+    background-color: #428bca;
+    display: block;
+    width: 50px;
+    height: 20px;
+    margin: 0px auto;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 20px;
+    cursor: pointer;
+    margin-top: -2px;
+}
+
+.pospage {
+    position: absolute;
+    left: 130px;
+    bottom: 0px;
+    background-color: #fff;
+    z-index: 5;
+} 
+
+
+
+
+
+.tableClass {
+    width: 100%;
+}
+
+.tableClass td {
+    padding: 2px;
+
+}
+
+.tableClass .success {
+    background-color: #dff0d8;
+}
+
+.tableClass th {
+    margin: 0px;
+    padding: 0px;
+    padding: 2px 0px;
+    text-indent: 5px;
+    background-color: #fff;
+}
+
+/*.tableClass td:hover{*/
+    /*height: 50px;*/
+    /*width: 200px;*/
+    /*background-color: #ffffff;*/
+    /*font-size: 20px;*/
+    /*text-align: center;*/
+/*}*/
+
+.tableClass td{
+    font-size: 8px;
+}
+
+.tableClass th i{
+    float: right;
+    padding:2px;
+}
+
+.tableClass tbody {
+    display:block;
+    overflow-y:scroll;
+}
+
+.tableClass {
+    border: 0px;
+}
+
+.tableClass tbody tr{
+    display:table;
+    width:100%;
+    table-layout:fixed;
+}
+
+.tableClass thead,tfoot { width: calc( 100% - 1.2em )}
+
+.tableClass .tfootClass span {
+    float: right;
+}
+
+.pos-i th{
+    position: relative;
+}
+
+.pos-i i {
+    position:absolute;
+    right: 2px;
+    top: 2px;
+}
+
+
+
+
+/*old*/
+.gridView {
+    width: 100%;
+}
+
+.gridView thead tr{
+    background-color: #fff;
+    z-index: 5;
+}
+
+.gridView .success {
+    background-color: #dff0d8;
+}
+
+.gridView td {
+    padding: 2px;
+}
+
+.gridView th {
+    margin: 0px;
+    padding: 0px;
+    padding: 2px 0px;
+    text-indent: 5px;
+}
+
+.common-style{
+    margin-left: 15px;
+    display: inline-block;
+}
+
+.input-common{
+    margin: 0px;
+    display: inline-block;
+}
+.common-input{
+    width:150px;!important;
+    display: inline-block;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+.small-image{
+    width: 99px;
+    height: 99px;
+    border: 3px solid #fff;
+}
+
+.large-image-iframe{
+    width: 100%;
+    height: 490px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+}
+
+.thumb-image-iframe{
+    width: 100%;
+    height: 200px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+}
+
+#pic_list{
+    position: relative;
+    width: 596px;
+    height: 100px;
+    float: left;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    white-space:nowrap;
+    overflow:hidden;
+}
+
+#pic_list ul{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    position: absolute;
+    left:0px;
+}
+
+.black-magic-href{
+    text-decoration:none;
+    color: white;
+}
+
+a.black-magic-href:hover {
+    text-decoration:none;
+    color: white;
+}
+
+.display-product-info-div{
+    max-height:250px;
+    width: 250px;
+    overflow-y:scroll;
+    border: 1px solid #eee;
+    background-color: #fff;
+    position: absolute;
+    z-index: 99999;
+}
+.display-product-info-div ul{
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+.tbody-scorll-no>tbody{
+    overflow-y: hidden;
+}
+
+.datagrid-view{
+    float: left;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+.datagrid-header{
+    height: 25px;
+    line-height: 25px;
+}
+
+.datagrid-cell-header{
+    font-weight: bold;
+    text-align: center;
+}
+.datagrid-cell,.datagrid-cell-header{
+    width: 100px;
+    text-align: center;
+}
+
+.datagrid-cell-rownumber,.datagrid-header-rownumber{
+    width: 30px;
+    text-align: center;
+}
+
+.datagrid-body{
+    margin-top: 30px;
+}
+.datagrid-body div{
+    text-align: center;
+    padding:2px 5px;
+}
+
+.height-40{
+    height:40px;
+}
+
+.datagrid-foot{
+    overflow: hidden;
+    text-align: center;
+    height: 25px;
+    border-bottom: 1px solid #c3c3c3;
+    line-height: 25px;
+}
+
+.datagrid-foot div{
+    background-color: #2aabd2;
+}
+
+.cursor-pointer{
+    cursor: pointer;
+}
+
+.overflow-style{
+    font-weight: normal;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow: ellipsis;
+}
+
+.back-log-li{
+    border-bottom: 1px dashed #cccccc;
+    cursor: pointer;
+    width: 180px;
+}
+
+.back-log-li:hover{
+    background-color: #eeeeee;
+}
+
+/* 表格容器样式，用flex布局可保证table内容能铺满剩余空间 */
+.sti-tbl-container {
+    height : 100%;
+    overflow : hidden;
+    display : flex;
+    flex-direction: column;
+}
+/* 设置表格的布局方式，用于宽度对齐 */
+.sti-tbl-body>table, .sti-tbl-header>table {
+    table-layout: fixed;
+}
+/* 设置表格内容容器，用于铺满整个剩余空间 */
+.sti-tbl-container .sti-tbl-body {
+    flex-grow : 1;
+    overflow-y : scroll;
+}
+
+/*设置表格的td用flex布局显示*/
+.td-flex{
+    display: flex;
+    justify-content: center;
 }

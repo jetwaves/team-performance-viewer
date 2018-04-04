@@ -1,0 +1,45 @@
+{
+  "name": "team-performance-viewer",
+  "description": "A web GUI to visulize team-performance history database",
+  "main": "index.js",
+  "authors": [
+    "jetwaves <jetwaves@qq.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "web",
+    "GUI",
+    "expressjs",
+    "nodejs",
+    "team",
+    "performance",
+    "git",
+    "log",
+    "commit",
+    "history"
+  ],
+  "homepage": "https://github.com/jetwaves/team-performance-viewer",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-ui-bootstrap": "^2.5.6",
+    "angular-animate": "^1.6.9",
+    "jshashes": "^1.0.7",
+    "angular-bootstrap-checkbox": "^0.5.1",
+    "angular-sanitize": "^1.6.9",
+    "angular-toastr": "^2.1.1",
+    "angular-moment": "^1.2.0",
+    "angular-route": "^1.6.9",
+    "angular-bootstrap": "^2.5.0",
+    "ng-dialog": "^1.4.0",
+    "oclazyload": "^1.1.0",
+    "angular-cookies": "^1.6.9",
+    "moment": "^2.22.0"
+  }
+}
