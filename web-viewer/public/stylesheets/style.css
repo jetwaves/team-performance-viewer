@@ -19,9 +19,10 @@ html,body{
   content:"";
 }
 
-.indexBg {
+.bodyStyle {
     /*background-color: #ccc;*/
-    /*position:relative;*/
+    position:relative;
+    padding-top: 50px;
 
 }
 
@@ -50,10 +51,11 @@ html,body{
     top: 0;
     width: 100%;
     z-index: 999;
-    height: 90px;
-    background-color: #40a6e8;
+    height: 50px;
+    /*background-color: #40a6e8;*/
+    background-color: #4169E1;
     color: #fff;
-    background:url('../images/logo.jpg') no-repeat scroll left;
+    /*background:url('../images/logo.jpg') no-repeat scroll left;*/
 }
 .backlog{
     float: right;
@@ -105,7 +107,7 @@ ul.nav-tabs li a:hover{
     margin: 0;
 }
 
-/* .sidebarbg {
+.sidebarbg {
     position: fixed;
     left: 0px;
     bottom: 0px;
@@ -116,10 +118,8 @@ ul.nav-tabs li a:hover{
     padding: 0;
     margin: 0;
     z-index: -1;
-    //background-color: #32323a;
-    background-color: #378752;
     border-right: 1px solid #202126;
-} */
+}
 
 .sidebar li {
     float: left;
