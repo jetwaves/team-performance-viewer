@@ -1,10 +1,56 @@
 <div class="sidebarbg">
-<ul class="sidebar">
-    <li ng-click="addTab('首页','/RessourceURI','/ModuleName/ControllerName','SCENE')">
-        首页
-    </li>
+    <ul class="sidebar">
+        <li ng-click="addTab('首页','/RessourceURI','/ModuleName/ControllerName','SCENE')">
+            首页
+        </li>
+        <li ng-click="addTab('TeamPerformance','/TeamPerformance','/TeamPerformance/TeamPerformanceController','search')">
+            TeamPerf
+        </li>
+        <!--注意   RightNameENS 必须是英文，并且两个出现的位置名字必须一致，才能够正常显示弹出的下级菜单-->
+        <li ng-mouseenter ="showSubItems('RightNameENS_01')" ng-mouseleave="showSubItems(no)">
+            模块名称 1
+            <div class="posDl" ng-show="navItem=='RightNameENS_01'">
+                <dl class="clearfix">
+                    <dt>分组名称 11</dt>
+                    <div class="ddList">
+                        <dd ng-click="addTab('功能名称111','功能HTML页面URI','功能控制器','场景')">功能名称</dd>
+                        <dd ng-click="addTab('功能名称112','功能HTML页面URI','功能控制器','场景')">功能名称</dd>
+                    </div>
+                </dl>
+                <dl class="clearfix">
+                    <dt>分组名称 12</dt>
+                    <div class="ddList">
+                        <dd ng-click="addTab('功能名称121','功能HTML页面URI','功能控制器','场景')">功能名称</dd>
+                        <dd ng-click="addTab('功能名称122','功能HTML页面URI','功能控制器','场景')">功能名称</dd>
+                        <dd ng-click="addTab('功能名称123','功能HTML页面URI','功能控制器','场景')">功能名称</dd>
+                    </div>
+                </dl>
+            </div>
+        </li>
+
+        <li ng-mouseenter ="showSubItems('RightNameENS_02')" ng-mouseleave="showSubItems(no)">
+            模块名称 2
+            <div class="posDl" ng-show="navItem=='RightNameENS_02'">
+                <dl class="clearfix">
+                    <dt>分组名称 21</dt>
+                    <div class="ddList">
+                        <dd ng-click="addTab('功能名称211','功能HTML页面URI','功能控制器','场景')">功能名称</dd>
+                        <dd ng-click="addTab('功能名称212','功能HTML页面URI','功能控制器','场景')">功能名称</dd>
+                        <dd ng-click="addTab('功能名称213','功能HTML页面URI','功能控制器','场景')">功能名称</dd>
+                        <dd ng-click="addTab('功能名称214','功能HTML页面URI','功能控制器','场景')">功能名称</dd>
+                    </div>
+                </dl>
+                <dl class="clearfix">
+                    <dt>分组名称 22</dt>
+                    <div class="ddList">
+                        <dd ng-click="addTab('功能名称221','功能HTML页面URI','功能控制器','场景')">功能名称</dd>
+                        <dd ng-click="addTab('功能名称222','功能HTML页面URI','功能控制器','场景')">功能名称</dd>
+                    </div>
+                </dl>
+            </div>
+        </li>
 
 
 
-</ul>
+    </ul>
 </div>

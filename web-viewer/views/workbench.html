@@ -1,0 +1,23 @@
+<!--管理后台右侧标签和卡片模板-->
+<!--管理后台右侧标签和卡片模板-->
+<div class="row">
+    <!--<h4 style="padding-left: 20px; color: white;background-color: red;position:absolute;right:10%; bottom: 20px;z-index: 200;opacity: 0.5;">< % = err % > </h3>-->
+</div>
+<div class="tabs-board">
+    <div class="content">
+        <uib-tabset>
+            <uib-tab ng-repeat="tab in tabs" active="tab.active" disable="tab.disabled">
+                <uib-tab-heading>
+                    <div ng-if="tab.closeable" class="tab-item" ng-dblclick="closeTab(tab.id)">
+                        <span class="tab-item-name">{{tab.title}}</span>
+                        <a href="javascript:;" ng-click="closeTab(tab.id)" class="tab-item-close glyphicon glyphicon-remove-circle"></a>
+                    </div>
+                    <div ng-if="!tab.closeable" class="tab-item">
+                        <span class="tab-item-name">{{tab.title}}</span>
+                    </div>
+                </uib-tab-heading>
+                <div class="tab-content" ng-include="tab.url"></div>
+            </uib-tab>
+        </uib-tabset>
+	</div>
+</div>

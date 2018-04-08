@@ -89,11 +89,11 @@ app.use('/webapp/angular-sanitize.js', express.static(path.join( path.dirname(__
 
 
 
-// app.use('/', indexRouter);
+app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 
-app.use('/', pagesRouter);
+// app.use('/', pagesRouter);
 app.use('/pages', pagesRouter);
 
 
