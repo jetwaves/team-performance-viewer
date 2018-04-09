@@ -17,9 +17,6 @@ router.get('/workbench', function(req, res, next) {
 
 
 
-// router.get('/nav', function(req, res, next) {
-//     res.render('nav.html', { title: 'Express' });
-// });
 
 
 module.exports = router;

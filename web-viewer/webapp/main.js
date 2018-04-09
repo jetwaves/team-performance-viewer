@@ -1,30 +1,26 @@
-console.log('           11111111 ');
 adminPanelApp = angular.module('adminPanel', [ 'ngRoute',
     'ui.bootstrap.datetimepicker','angularMoment','ngAnimate','ui.checkbox','mwl.confirm', 'ngCookies',
     'ngDialog','ngSanitize','toastr','ui.bootstrap','oc.lazyLoad'
 ]);
-console.log('           222 ');
-// adminPanelApp.config(['$ocLazyLoadProvider', function ($ocLazyLoadProvider) {
-//     $ocLazyLoadProvider.config({
-//         jsLoader: requirejs,
-//         debug: true
-//     });
-// }]);
-console.log('           333 ');
-// adminPanelApp.config(['ngDialogProvider', function (ngDialogProvider) {
-//     ngDialogProvider.setDefaults({
-//         className: 'ngdialog-theme-default',
-//         plain: false,
-//         showClose: true,
-//         closeByDocument: true,
-//         closeByEscape: false,
-//         appendTo: false,
-//         preCloseCallback: function () {
-//             console.log(' main.js       ngDialog default pre-close callback');
-//         }
-//     });
-// }]);
-console.log('           444 ');
+adminPanelApp.config(['$ocLazyLoadProvider', function ($ocLazyLoadProvider) {
+    $ocLazyLoadProvider.config({
+        jsLoader: requirejs,
+        debug: true
+    });
+}]);
+adminPanelApp.config(['ngDialogProvider', function (ngDialogProvider) {
+    ngDialogProvider.setDefaults({
+        className: 'ngdialog-theme-default',
+        plain: false,
+        showClose: true,
+        closeByDocument: true,
+        closeByEscape: false,
+        appendTo: false,
+        preCloseCallback: function () {
+            console.log(' main.js       ngDialog default pre-close callback');
+        }
+    });
+}]);
 /*
 adminPanelApp.config(['dndListsProvider ', function ($dndListsProvider ) {
     $dndListsProvider.config({
@@ -33,43 +29,41 @@ adminPanelApp.config(['dndListsProvider ', function ($dndListsProvider ) {
     });
 }]);*/
 
-console.log('           555 ');
 /*  Toaster 风格弹窗提示，通用配置   */
-// adminPanelApp.config(function (toastrConfig) {
-//     angular.extend(toastrConfig, {
-//         autoDismiss: false,
-//         containerId: 'toast-container',
-//         maxOpened: 0,
-//         newestOnTop: true,
-//         positionClass: 'toast-top-center',
-//         timeOut: 3000, /* 自动消失计时器，0表示不自动消失*/
-//         extendedTimeOut: 3000, /* 鼠标悬浮后的消失计时器, 悬浮后 3000毫秒自动消失  */
-//         preventDuplicates: false,
-//         preventOpenDuplicates: false,
-//         target: 'body'
-//     });
-// });
-console.log('           666 ');
+adminPanelApp.config(function (toastrConfig) {
+    angular.extend(toastrConfig, {
+        autoDismiss: false,
+        containerId: 'toast-container',
+        maxOpened: 0,
+        newestOnTop: true,
+        positionClass: 'toast-top-center',
+        timeOut: 3000, /* 自动消失计时器，0表示不自动消失*/
+        extendedTimeOut: 3000, /* 鼠标悬浮后的消失计时器, 悬浮后 3000毫秒自动消失  */
+        preventDuplicates: false,
+        preventOpenDuplicates: false,
+        target: 'body'
+    });
+});
 
-// adminPanelApp.factory('instance', function () {
-//     return {};
-// });
-//
-// adminPanelApp.constant('_',
-//     window._
-// );
+adminPanelApp.factory('instance', function () {
+    return {};
+});
+
+adminPanelApp.constant('_',
+    window._
+);
 
 
-// adminPanelApp.controller('layoutController', ['$scope', '$ocLazyLoad', '$http', 'instance', '_', '$uibModal', 'ngDialog','$rootScope', '$cookies',
-//     function ($scope, $ocLazyLoad, $http, instance, _, $uibModal,ngDialog, $rootScope, $cookies) {    /*uibModel是弹窗*/
+adminPanelApp.controller('layoutController', [
+         '$scope','$ocLazyLoad','$http','instance','_','$uibModal','ngDialog','$rootScope','$cookies',
+function ($scope,  $ocLazyLoad,  $http,  instance,  _,  $uibModal,  ngDialog,  $rootScope,  $cookies) {    /*uibModel是弹窗*/
+// adminPanelApp.controller('layoutController', ['$scope', '$ocLazyLoad', '$http', '$uibModal', 'ngDialog','$rootScope', '$cookies',
+//     function ($scope, $ocLazyLoad, $http,  $uibModal,ngDialog, $rootScope, $cookies) {    /*uibModel是弹窗*/
 
-console.log('           777 ');
-adminPanelApp.controller('layoutController', ['$scope', '$ocLazyLoad', '$http', '$uibModal', 'ngDialog','$rootScope', '$cookies',
-    function ($scope, $ocLazyLoad, $http,  $uibModal,ngDialog, $rootScope, $cookies) {    /*uibModel是弹窗*/
-
-        // //加载DialogService和ListService by Hisheng
-        // // msg:例如可以全局调用显示机构列表的对话框 Dialog.showStoreList() 依赖注入是 Dialog
-        // $ocLazyLoad.load(['/webapp/service/DialogService.js', '/webapp/service/ListService.js','/webapp/service/CheckService.js']).then(function (){},function (e){});
+        //加载DialogService和ListService by Hisheng
+        // msg:例如可以全局调用显示机构列表的对话框 Dialog.showStoreList() 依赖注入是 Dialog
+        $ocLazyLoad.load(['/webapp/service/DialogService.js', '/webapp/service/ListService.js','/webapp/service/CheckService.js']).then(function (){},function (e){});
+        // $ocLazyLoad.load(['/webapp/service/DialogService.js']).then(function (){},function (e){});
         // //加载自定义的angular filter
         // $ocLazyLoad.load(['/webapp/filter.js']).then(function(){},function(e){});
         // //---------- 提前加载区域信息 -----------
@@ -121,96 +115,97 @@ adminPanelApp.controller('layoutController', ['$scope', '$ocLazyLoad', '$http', 
         console.log('           AAAA        2 ');
 
         //一些设置项
-
         //时间控件设置
         $rootScope.timepicker_options = {'show-meridian': false};
 
-        // //工作台
-        // $scope.tabs = [];
-        // /**
-        //  * 在工作区打开新的工作窗口
-        //  * @param titleValue    string      卡片的中文标题
-        //  * @param url           string      模板页面网址      eg.  /getPanel?app=ModelName
-        //  * @param controller    string      页面angularjs控制器名称        eg.  ModelNameController
-        //  * @param scene         string      工作场景：当同一个控制器管理新增，修改界面的时候，会根据场景不同做数据填充和交互
-        //  * */
-        // $scope.addTab = function (titleValue, url, controller, scene, closeable) {
-        //     if(closeable === undefined||closeable != false){
-        //         closeable = true;
-        //     }else{
-        //         closeable = false;
-        //     }
-        //     console.log('           closeable  = ');  console.dir(closeable);
-        //     $scope.navShow = 'no';
-        //     var tabId = controller + '_' + scene;
-        //     console.log('  main.js   addTab()       tabId = ');
-        //     console.dir(tabId);
-        //     // 如果tab存在则启用
-        //     var tabs = $scope.tabs;
-        //     console.log('  main.js   addTab()       tabs = ');
-        //     console.dir(tabs);
-        //     var tabToActive = _.findWhere(tabs, {id: tabId});
-        //     console.log('  main.js   addTab()       tabToActive = ');
-        //     console.dir(tabToActive);
-        //     if (tabToActive) {
-        //         console.log('  main.js   addTab()       found tabToActive   ID      = ');
-        //         console.dir(tabToActive.id);
-        //         console.log('  main.js   addTab()       found tabToActive   title   = ');
-        //         console.dir(tabToActive.title);
-        //         tabToActive.active = true;
-        //         return;
-        //     }
-        //     // 没有同名tab存在，则新增
-        //     $ocLazyLoad.load(['/webapp/c/' + controller + '.js', 'DateSelectionController']).then(function () {
-        //         console.log('           after controller ' + controller + '  loding');
-        //         console.log('  main.js   addTab()       before Add a new Tab');
-        //         $scope.tabs.push({title: titleValue, url: url, id: tabId, disabled: false, name: tabId, active: true, closeable: closeable});
-        //         console.log('  main.js   addTab()       after set ActiveTab');
-        //     }, function (e) {
-        //         console.log(' addTab     after load module 000.then Error  ');
-        //         console.dir(e);
-        //     });
-        //
-        // };
-        //
-        // $scope.reloadTab = function (titleValue, url, controller, scene, closeable) {
-        //     if(closeable === undefined||closeable != false){
-        //         closeable = true;
-        //     }else{
-        //         closeable = false;
-        //     }
-        //     $scope.navShow = 'no';
-        //     var tabId = controller + '_' + scene;
-        //     // 如果tab存在则启用
-        //     var tabs = $scope.tabs;
-        //     var tabToActive = _.findWhere(tabs, {id: tabId});
-        //
-        //     if (tabToActive) {
-        //         $scope.closeTab(tabToActive.id)
-        //     }
-        //     // 没有同名tab存在，则新增
-        //     $ocLazyLoad.load(['/webapp/c/' + controller + '.js', 'DateSelectionController']).then(function () {
-        //         $scope.tabs.push({title: titleValue, url: url, id: tabId, disabled: false, name: tabId, active: true, closeable: closeable});
-        //     }, function (e) {
-        //     });
-        //
-        // };
+        //工作台
+        $scope.tabs = [];
+        /**
+         * 在工作区打开新的工作窗口
+         * @param titleValue    string      卡片的中文标题
+         * @param url           string      模板页面网址      eg.  /getPanel?app=ModelName
+         * @param controller    string      页面angularjs控制器名称        eg.  ModelNameController
+         * @param scene         string      工作场景：当同一个控制器管理新增，修改界面的时候，会根据场景不同做数据填充和交互
+         * */
+        $scope.addTab = function (titleValue, url, controller, scene, closeable) {
+            if(closeable === undefined||closeable != false){
+                closeable = true;
+            }else{
+                closeable = false;
+            }
+            console.log('           closeable  = ');  console.dir(closeable);
+            $scope.navShow = 'no';
+            var tabId = controller + '_' + scene;
+            console.log('  main.js   addTab()       tabId = ');
+            console.dir(tabId);
+            // 如果tab存在则启用
+            var tabs = $scope.tabs;
+            console.log('  main.js   addTab()       tabs = ');
+            console.dir(tabs);
+            // var tabToActive = _.findWhere(tabs, {id: tabId});
+            var tabToActive = tabs[ _.findIndex(tabs, {id: tabId})];
+            console.log('  main.js   addTab()       tabToActive = ');
+            console.dir(tabToActive);
+            if (tabToActive) {
+                console.log('  main.js   addTab()       found tabToActive   ID      = ');
+                console.dir(tabToActive.id);
+                console.log('  main.js   addTab()       found tabToActive   title   = ');
+                console.dir(tabToActive.title);
+                tabToActive.active = true;
+                return;
+            }
+            // 没有同名tab存在，则新增
+            // $ocLazyLoad.load(['/webapp' + controller + '.js', 'DateSelectionController']).then(function () {
+            $ocLazyLoad.load(['/webapp' + controller + '.js']).then(function () {
+                console.log('           after controller ' + controller + '  loding');
+                console.log('  main.js   addTab()       before Add a new Tab');
+                $scope.tabs.push({title: titleValue, url: url, id: tabId, disabled: false, name: tabId, active: true, closeable: closeable});
+                console.log('  main.js   addTab()       after set ActiveTab');
+            }, function (e) {
+                console.log(' addTab     after load module 000.then Error  ');
+                console.dir(e);
+            });
+
+        };
+
+        $scope.reloadTab = function (titleValue, url, controller, scene, closeable) {
+            if(closeable === undefined||closeable != false){
+                closeable = true;
+            }else{
+                closeable = false;
+            }
+            $scope.navShow = 'no';
+            var tabId = controller + '_' + scene;
+            // 如果tab存在则启用
+            var tabs = $scope.tabs;
+            var tabToActive = _.findWhere(tabs, {id: tabId});
+
+            if (tabToActive) {
+                $scope.closeTab(tabToActive.id)
+            }
+            // 没有同名tab存在，则新增
+            $ocLazyLoad.load(['/webapp/c/' + controller + '.js', 'DateSelectionController']).then(function () {
+                $scope.tabs.push({title: titleValue, url: url, id: tabId, disabled: false, name: tabId, active: true, closeable: closeable});
+            }, function (e) {
+            });
+
+        };
         // /**
         //  *默认加载界面
         //  */
         // // $scope.addTab('首页','/SafetyStock','/SafetyStock/SafetyStockController','SafetyStock');
         //
         //
-        // /**
-        //  * 点击卡片旁边的小叉，关闭卡片
-        //  * */
-        // $scope.closeTab = function (id) {
-        //     var tabs = $scope.tabs;
-        //     var newTabs = _.reject(tabs, function (tab) {
-        //         return tab.id == id;
-        //     });
-        //     $scope.tabs = newTabs;
-        // };
+        /**
+         * 点击卡片旁边的小叉，关闭卡片
+         * */
+        $scope.closeTab = function (id) {
+            var tabs = $scope.tabs;
+            var newTabs = _.reject(tabs, function (tab) {
+                return tab.id == id;
+            });
+            $scope.tabs = newTabs;
+        };
 
 
         console.log('           AAAA        3 ');
@@ -241,18 +236,6 @@ adminPanelApp.controller('layoutController', ['$scope', '$ocLazyLoad', '$http', 
                         }
                     }
                 });
-                //dialogBox.result.then(function (ret) {      // 接收成功返回值
-                //    $scope.ret = ret;
-                //    console.log('  dialogBox.result.then        ret = ');
-                //    console.dir(ret);
-                //    $scope.dialogOutput = ret;
-                //    $scope.$broadcast(returnedEventName + 'Success', ret);
-                //}, function (ret) {             // 接收到失败返回值
-                //    console.log('  dialogBox.result.then        dismiss  ret 2 = ');
-                //    console.dir(ret);
-                //    console.log('Modal dismissed at: ' + new Date());
-                //    $scope.$broadcast(returnedEventName + 'Error', ret);
-                //});
                 return dialogBox;
             }, function (e) {
                 console.log(' open Dialog after load Controller  .then Error');

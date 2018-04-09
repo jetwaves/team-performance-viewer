@@ -1,0 +1,152 @@
+<!-- 人员档案 by Hisheng -->
+<div class="staff container-fluid" id="staff" ng-controller="TeamPerformanceListController">
+    <div class="loading" ng-if="loading=='loading'"><img src="/public/images/lun.gif" alt=""></div>
+    <div class="staffTopHeight">
+        <div class="row" style="margin-top:5px;">
+            <div class="col-sm-1">
+                <button type="button" class="btn defaultBtn" ng-click="search()">查询 <i class="glyphicon glyphicon-search"></i></button>
+            </div>
+            <div class="col-sm-1">
+                <button type="button" class="btn defaultBtn" ng-click="add()">新增 <i class="glyphicon glyphicon-plus"></i></button></button>
+            </div>
+            <div class="col-sm-1">
+                <button type="button" class="btn defaultBtn" ng-click="edit()">编辑 <i class="glyphicon glyphicon-pencil"></i></button>
+            </div>
+            <div class="col-sm-1">
+                <button type="button" class="btn defaultBtn ng-binding ng-isolate-scope" ng-click=""
+                        mwl-confirm="" title="<b>删除员工</b>"
+                        message="确定要删除所选员工吗？<br/>(该操作不可撤销)"
+                        confirm-text="确定"
+                        cancel-text="取消"
+                        confirm-button-type="danger"
+                        on-confirm="delete()">删除 <i class="glyphicon glyphicon-trash"></i></button>
+            </div>
+            <div class="col-sm-1"><button type="button" class="btn defaultBtn" ng-click="showResetPassword()">修改密码</button></div>
+            <div class="col-sm-1"><button class="btn defaultBtn" ng-click="resetQuery()">清空 <i class="glyphicon glyphicon-retweet"></i></button></div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <label>查询日期:</label>
+                <p class="input-group">
+                    <input type="text" class="form-control" datetime-picker="yyyy-MM-dd HH:mm" enable-date="true" timepicker-options="" close-on-selection="true" ng-model="conditions.start_time" is-open="date1Open" enable-time="false" placeholder="无时分秒">
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="date1Open=true"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </p>
+            </div>
+            <div class="col-md-3">
+                <label>截止日期:</label>
+                <p class="input-group">
+                    <input type="text" class="form-control" datetime-picker="yyyy-MM-dd HH:mm" enable-date="true" timepicker-options="" close-on-selection="true" ng-model="conditions.end_time" is-open="date2Open" enable-time="false" placeholder="无时分秒">
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="date2Open=true"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </p>
+            </div>
+            <div class="col-sm-3">
+                <label>用户编码</label>
+                <input type="text" class="form-control staff_number" placeholder="用户编码" ng-model="conditions.staff_number">
+            </div>
+            <div class="col-sm-3">
+                <label>用户电话</label>
+                <input type="integer" class="form-control mobile" placeholder="用户电话" ng-model="conditions.mobile">
+            </div>
+        </div>
+        <div class="row" style="padding-bottom:5px;">
+            <div class="col-sm-3">
+                <label>用户名称</label>
+                <input type="text" class="form-control name" placeholder="用户名称" ng-model="conditions.name">
+            </div>
+            <div class="col-sm-3">
+                <label>状态</label>
+                <select name="status" class="form-control status" ng-model="conditions.status">
+                    <option value="">所有</option>
+                    <option value="0">在职</option>
+                    <option value="1">离职</option>
+                    <option value="2">未激活</option>
+                </select>
+            </div>
+            <div class="col-sm-3">
+                <label>角色</label>
+                <select name="role" class="form-control role" ng-model="conditions.role" ng-options="role.gid as role.role_name for role in roleListItemsOfStaff">
+                    <option value="">所有</option>
+                </select>
+            </div>
+            <div class="col-sm-3">
+                <label>所属门店</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" ng-model="conditions.store_name" placeholder="选择门店">
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="showStoreListDialog()"><i class="glyphicon glyphicon-folder-open"></i></button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <table class="tableClass table-bordered" id="staff-list">
+        <tr class="pos-i">
+            <th width="30"><input type="checkbox" ng-click="selectAllListItems()"></th>
+            <th class="staff_number" ng-click="sortBy('staff_number')">用户编码<i class="glyphicon glyphicon-sort"></i></th>
+            <th class="name" ng-click="sortBy('name')">用户名称<i class="glyphicon glyphicon-sort"></i></th>
+            <th class="status" ng-click="sortBy('status')">状态<i class="glyphicon glyphicon-sort"></i></th>
+            <th class="store_name" ng-click="sortBy('store_name')">所属机构<i class="glyphicon glyphicon-sort"></i></th>
+            <th class="mobile" ng-click="sortBy('mobile')">用户电话<i class="glyphicon glyphicon-sort"></i></th>
+            <th class="role_name" ng-click="sortBy('role_name')">角色<i class="glyphicon glyphicon-sort"></i></th>
+            <th class="employment_date" ng-click="sortBy('employment_date')">入职时间<i class="glyphicon glyphicon-sort"></i></th>
+            <th class="memo" ng-click="sortBy('memo')">备注<i class="glyphicon glyphicon-sort"></i></th>
+        </tr>
+        <tbody>
+        <tr ng-repeat="staff in staffListItems" ng-dblclick="editListItem($index)" class="{{staff.gid}}">
+            <td width="30"><input type="checkbox" id="staff-checkbox-{{staff.gid}}" ng-click="checkListItemSelect($index,staff.gid)"></td>
+            <td>{{staff.staff_number}}</td>
+            <td>{{staff.name}}</td>
+            <td>{{staff.status}}</td>
+            <td>{{staff.store_name}}</td>
+            <td>{{staff.mobile}}</td>
+            <td>{{staff.role_name}}</td>
+            <td>{{staff.employment_date | formatToDate:'YYYY-MM-DD'}}</td>
+            <td>{{staff.memo}}</td>
+        </tr>
+        </tbody>
+        <tr class="tfootClass">
+            <th width="30">--</th>
+            <th>--</th>
+            <th>--</th>
+            <th>--</th>
+            <th>--</th>
+            <th>--</th>
+            <th>--</th>
+            <th>--</th>
+            <th>--</th>
+        </tr>
+    </table>
+    <div class="alert alert-danger" role="alert" ng-bind="staff_alert" ng-show="staff_alert"></div>
+    <div class="pospage">
+        <div class="col-md-6">
+            <uib-pagination boundary-links="true"total-items="totalItems" max-size='10' ng-change="pageChanged()" num-pages="numPages" ng-model="current_page" class="pagination-sm" previous-text="上页" next-text="下页" first-text="首页" last-text="末页">
+            </uib-pagination>
+        </div>
+        <div class="col-md-1">
+            <div style="margin-top:20px;">
+                <select class="form-control" ng-model="nums_per_page" ng-change="pageChanged(1)">
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                    <option value="1000">1000</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="input-group" style="margin-top:20px;">
+                <input type="text" class="form-control" placeholder="page" ng-model="current_page">
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="pageChanged()">Go!</button>
+                </span>
+            </div>
+        </div>
+        <div class="col-md-2" style="padding-top:25px;text-align:center">共[ <b>{{dataCount}}</b> ]条记录</div>
+        <div class="col-md-1" style="padding-top:25px;text-align:center">{{current_page}}/{{numPages}}</div>
+    </div>
+</div>
+

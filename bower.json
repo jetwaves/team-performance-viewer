@@ -40,6 +40,7 @@
     "ng-dialog": "^1.4.0",
     "oclazyload": "^1.1.0",
     "angular-cookies": "^1.6.9",
-    "moment": "^2.22.0"
+    "moment": "^2.22.0",
+    "lodash": "^4.17.5"
   }
 }

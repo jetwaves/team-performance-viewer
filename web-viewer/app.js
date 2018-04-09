@@ -13,7 +13,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var pagesRouter = require('./routes/pages');
-
+var TeamPerformanceRouter = require('./routes/TeamPerformance');
 
 
 var app = express();
@@ -72,13 +72,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-// app.use(express.static(path.join(__dirname, 'public')));
-
-
 
 app.use('/public', express.static(__dirname + '/public'));                        // 映射public 目录
-// var fePath = path.join( __dirname, 'bower_components');
-// app.use('/fe', express.static(path.join( __dirname, 'bower_components')) ); // 映射Bower 静态目录
 app.use('/fe', express.static(path.join( path.dirname(__dirname), 'bower_components')) ); // 映射Bower 静态目录
 app.use('/vc', express.static(path.join( __dirname, 'webapp', 'vc')) );           // 映射Vuejs controller 静态目录
 app.use('/webapp', express.static(path.join( __dirname, 'webapp')) );           // 映射Vuejs controller 静态目录
@@ -90,6 +85,8 @@ app.use('/webapp/angular-sanitize.js', express.static(path.join( path.dirname(__
 
 
 app.use('/', indexRouter);
+app.use('/TeamPerformance', TeamPerformanceRouter);
+
 app.use('/users', usersRouter);
 
 
