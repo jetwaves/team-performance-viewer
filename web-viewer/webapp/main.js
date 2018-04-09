@@ -136,14 +136,13 @@ function ($scope,  $ocLazyLoad,  $http,  instance,  _,  $uibModal,  ngDialog,  $
             console.log('           closeable  = ');  console.dir(closeable);
             $scope.navShow = 'no';
             var tabId = controller + '_' + scene;
-            console.log('  main.js   addTab()       tabId = ');
-            console.dir(tabId);
+            console.log('  main.js   addTab()       tabId = ' + tabId);
             // 如果tab存在则启用
             var tabs = $scope.tabs;
             console.log('  main.js   addTab()       tabs = ');
             console.dir(tabs);
-            // var tabToActive = _.findWhere(tabs, {id: tabId});
-            var tabToActive = tabs[ _.findIndex(tabs, {id: tabId})];
+            var tabToActive = _.findWhere(tabs, {id: tabId});
+            // var tabToActive = tabs[ _.findIndex(tabs, {id: tabId})];
             console.log('  main.js   addTab()       tabToActive = ');
             console.dir(tabToActive);
             if (tabToActive) {
@@ -157,9 +156,11 @@ function ($scope,  $ocLazyLoad,  $http,  instance,  _,  $uibModal,  ngDialog,  $
             // 没有同名tab存在，则新增
             // $ocLazyLoad.load(['/webapp' + controller + '.js', 'DateSelectionController']).then(function () {
             $ocLazyLoad.load(['/webapp' + controller + '.js']).then(function () {
-                console.log('           after controller ' + controller + '  loding');
+                console.log('           after Loading controller ' + controller );
                 console.log('  main.js   addTab()       before Add a new Tab');
+                console.log('           $scope.tabs 01  = ');  console.dir($scope.tabs);
                 $scope.tabs.push({title: titleValue, url: url, id: tabId, disabled: false, name: tabId, active: true, closeable: closeable});
+                console.log('           $scope.tabs 02  = ');  console.dir($scope.tabs);
                 console.log('  main.js   addTab()       after set ActiveTab');
             }, function (e) {
                 console.log(' addTab     after load module 000.then Error  ');

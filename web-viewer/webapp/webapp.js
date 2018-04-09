@@ -16,7 +16,9 @@ require.config({
         'ngRoute'                : '../fe/angular-route/angular-route.min',
         'ngSanitize'             : '../fe/angular-sanitize/angular-sanitize.min',
         'ngToastr'               : '../fe/angular-toastr/dist/angular-toastr.tpls.min',
-        'ngUiBs'                 : '../fe/angular-bootstrap/ui-bootstrap-tpls.min',
+        // 'ngUiBs'                 : '../fe/angular-bootstrap/ui-bootstrap-tpls.min',
+        // 'ngUiBs'                 : '../fe/angular-bootstrap/ui-bootstrap-tpls',
+        'ngUiBs'                 : '../public/javascripts/ui-bootstrap-tpls-0.14.3', // 只能用这个，否则卡片重开会有问题
         'ocLazyLoad'             : '../fe/oclazyload/dist/ocLazyLoad.require.min'
 
 
