@@ -3,21 +3,21 @@
 // util = require('../helpers/util');
 // myApp = require('../helpers/myApp');
 
-const async = require('async');
-const moment = require('moment');
-const _ = require('lodash');
-const http = require('http');
-const url = require('url');
-const qs = require('querystring');
-const fs = require('fs');
-const sysConf = require('../config/config.js');
-const crypto = require('crypto');
-const sha1 = require('sha1');
-const Promise = require('promise');
+var async = require('async');
+var moment = require('moment');
+var _ = require('lodash');
+var http = require('http');
+var url = require('url');
+var qs = require('querystring');
+var fs = require('fs');
+var sysConf = require('../config/config.js');
+var crypto = require('crypto');
+var sha1 = require('sha1');
+var Promise = require('promise');
 // const encoding = require('encoding');
-const path = require('path');
-const os = require('os');
-const JSON = require('json-bigint')({"storeAsString": true});
+var path = require('path');
+var os = require('os');
+var JSON = require('json-bigint')({"storeAsString": true});
 
 // const CachemanFile = require('cacheman-file');
 // const globalCacheOptions = {

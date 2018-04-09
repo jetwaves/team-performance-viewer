@@ -1,7 +1,7 @@
 <!-- 人员档案 by Hisheng -->
 <div class="staff container-fluid" id="staff" ng-controller="TeamPerformanceListController">
-    <div class="loading" ng-if="loading=='loading'"><img src="/public/images/lun.gif" alt=""></div>
-    <div class="staffTopHeight">
+    <div class="loading" ng-if="loading=='loading'"><img src="/public/images/loading.gif" alt=""></div>
+    <div class="TeamPerformanceList-TopHeight">
         <div class="row" style="margin-top:5px;">
             <div class="col-sm-1">
                 <button type="button" class="btn defaultBtn" ng-click="search()">查询 <i class="glyphicon glyphicon-search"></i></button>
@@ -13,7 +13,7 @@
             <div class="col-md-2">
                 <label>查询日期:</label>
                 <p class="input-group">
-                    <input type="text" class="form-control" datetime-picker="yyyy-MM-dd HH:mm" enable-date="true" timepicker-options="" close-on-selection="true" ng-model="conditions.start_time" is-open="date1Open" enable-time="false" placeholder="无时分秒">
+                    <input type="text" class="form-control" datetime-picker="yyyy-MM-dd HH:mm" enable-date="true" timepicker-options="" close-on-selection="true" ng-model="params.start_time" is-open="date1Open" enable-time="false" placeholder="无时分秒">
                     <span class="input-group-btn">
                         <button type="button" class="btn btn-default" ng-click="date1Open=true"><i class="glyphicon glyphicon-calendar"></i></button>
                     </span>
@@ -22,7 +22,7 @@
             <div class="col-md-2">
                 <label>截止日期:</label>
                 <p class="input-group">
-                    <input type="text" class="form-control" datetime-picker="yyyy-MM-dd HH:mm" enable-date="true" timepicker-options="" close-on-selection="true" ng-model="conditions.end_time" is-open="date2Open" enable-time="false" placeholder="无时分秒">
+                    <input type="text" class="form-control" datetime-picker="yyyy-MM-dd HH:mm" enable-date="true" timepicker-options="" close-on-selection="true" ng-model="params.end_time" is-open="date2Open" enable-time="false" placeholder="无时分秒">
                     <span class="input-group-btn">
                         <button type="button" class="btn btn-default" ng-click="date2Open=true"><i class="glyphicon glyphicon-calendar"></i></button>
                     </span>
@@ -30,31 +30,31 @@
             </div>
             <div class="col-sm-2">
                 <label>用户名称</label>
-                <input type="text" class="form-control author" placeholder="用户名称" ng-model="conditions.author">
+                <input type="text" class="form-control author" placeholder="用户名称" ng-model="params.author">
             </div>
             <div class="col-sm-2">
                 <label>提交内容</label>
-                <input type="text" class="form-control msg" placeholder="提交内容" ng-model="conditions.msg">
+                <input type="text" class="form-control msg" placeholder="提交内容" ng-model="params.msg">
             </div>
         </div>
         <div class="row" style="padding-bottom:5px;">
             <div class="col-sm-2">
                 <label>项目名称</label>
-                <input type="text" class="form-control project" placeholder="项目名称" ng-model="conditions.project">
+                <input type="text" class="form-control project" placeholder="项目名称" ng-model="params.project">
             </div>
             <div class="col-sm-2">
                 <label>分支名称</label>
-                <input type="text" class="form-control branch" placeholder="分支名称" ng-model="conditions.branch">
+                <input type="text" class="form-control branch" placeholder="分支名称" ng-model="params.branch">
             </div>
             <div class="col-sm-2">
                 <label>hash</label>
-                <input type="text" class="form-control hash" placeholder="Hash" ng-model="conditions.hash">
+                <input type="text" class="form-control hash" placeholder="Hash" ng-model="params.hash">
             </div>
         </div>
     </div>
-    <table class="tableClass table-bordered" id="staff-list">
+    <table class="tableClass table-bordered" id="TeamPerformanceList-list">
         <tr class="pos-i">
-            <th class="date" ng-click="sortBy('date')">截止日期<i class="glyphicon glyphicon-sort"></i>  </th>
+            <th class="dateStr" ng-click="sortBy('date')">截止日期<i class="glyphicon glyphicon-sort"></i>  </th>
             <th class="author" ng-click="sortBy('author')">用户名称<i class="glyphicon glyphicon-sort"></i>  </th>
             <th class="msg" ng-click="sortBy('msg')">提交内容<i class="glyphicon glyphicon-sort"></i>  </th>
             <th class="project" ng-click="sortBy('project')">项目名称<i class="glyphicon glyphicon-sort"></i>  </th>
@@ -63,13 +63,13 @@
 
         </tr>
         <tbody>
-        <tr ng-repeat="staff in staffListItems" ng-dblclick="editListItem($index)" class="{{staff.gid}}">
-            <td>{{staff.dateSTR}}</td>
-            <td>{{staff.author}}</td>
-            <td>{{staff.msg}}</td>
-            <td>{{staff.project}}</td>
-            <td>{{staff.branch}}</td>
-            <td>{{staff.hash}}</td>
+        <tr ng-repeat="gitPerf in gitPerfListItems" class="{{gitPerf.hash}}">
+            <td>{{gitPerf.dateStr}}</td>
+            <td>{{gitPerf.author}}</td>
+            <td>{{gitPerf.msg}}</td>
+            <td>{{gitPerf.project}}</td>
+            <td>{{gitPerf.branch}}</td>
+            <td>{{gitPerf.hash}}</td>
         </tr>
         </tbody>
         <tr class="tfootClass">
@@ -81,7 +81,7 @@
             <th>--</th>
         </tr>
     </table>
-    <div class="alert alert-danger" role="alert" ng-bind="staff_alert" ng-show="staff_alert"></div>
+    <!--<div class="alert alert-danger" role="alert" ng-bind="staff_alert" ng-show="staff_alert"></div>-->
     <div class="pospage">
         <div class="col-md-6">
             <uib-pagination boundary-links="true"total-items="totalItems" max-size='10' ng-change="pageChanged()" num-pages="numPages" ng-model="current_page" class="pagination-sm" previous-text="上页" next-text="下页" first-text="首页" last-text="末页">
@@ -106,7 +106,7 @@
                 </span>
             </div>
         </div>
-        <div class="col-md-2" style="padding-top:25px;text-align:center">共[ <b>{{dataCount}}</b> ]条记录</div>
+        <div class="col-md-2" style="padding-top:25px;text-align:center">共[ <b>{{totalItems}}</b> ]条记录</div>
         <div class="col-md-1" style="padding-top:25px;text-align:center">{{current_page}}/{{numPages}}</div>
     </div>
 </div>

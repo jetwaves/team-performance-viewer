@@ -90,7 +90,8 @@ function ($scope,  $ocLazyLoad,  $http,  instance,  _,  $uibModal,  ngDialog,  $
         //     console.log('           $rootScope.regions  NOT NULL ');
         //     $rootScope.regions = JSON.parse(localStorage.regions);
         // }
-        console.log('           AAAA        1 ');
+
+
 
         // 载入用户菜单权限信息
         // if( !localStorage.menu_userRights){
@@ -113,10 +114,9 @@ function ($scope,  $ocLazyLoad,  $http,  instance,  _,  $uibModal,  ngDialog,  $
         //     console.log('           $rootScope.menu_userRights  NOT NULL ');
         //     $rootScope.menu_userRights = JSON.parse(localStorage.menu_userRights);
         // }
-        console.log('           AAAA        2 ');
 
         //一些设置项
-        //时间控件设置
+        // 时间控件设置
         $rootScope.timepicker_options = {'show-meridian': false};
 
         //工作台
@@ -215,7 +215,6 @@ function ($scope,  $ocLazyLoad,  $http,  instance,  _,  $uibModal,  ngDialog,  $
         };
 
 
-        console.log('           AAAA        3 ');
         /**
          * 用于打开对话框
          * */
@@ -250,7 +249,6 @@ function ($scope,  $ocLazyLoad,  $http,  instance,  _,  $uibModal,  ngDialog,  $
             });
         };
 
-        console.log('           AAAA        4 ');
 
         /**
          * 用于打开对话框
@@ -297,7 +295,6 @@ function ($scope,  $ocLazyLoad,  $http,  instance,  _,  $uibModal,  ngDialog,  $
             });
         };
 
-        console.log('           AAAA        5 ');
 
         // $scope.currentUser = function () {
         //     var cookie = $cookies.get('currentUser');
@@ -313,13 +310,11 @@ function ($scope,  $ocLazyLoad,  $http,  instance,  _,  $uibModal,  ngDialog,  $
         // };
         // $rootScope.currentUserInfo = $scope.currentUser();
 
-        console.log('           AAAA        6 ');
 
         if($rootScope.currentUserInfo === undefined){
             // window.location.reload();
         }
 
-        console.log('           AAAA        7 ');
 
         $scope.selectTab = function (tabName) {
             console.log('   main.js   selectTab()       tabName = ' + tabName);
@@ -327,88 +322,13 @@ function ($scope,  $ocLazyLoad,  $http,  instance,  _,  $uibModal,  ngDialog,  $
             $scope.$apply();
         }
 
-        console.log('           AAAA        8 ');
         //显示二级菜单
         $scope.showSubItems = function (item) {
             $scope.navItem = item;
         }
 
-        console.log('           AAAA        9 ');
 
-        //-------------- 显示密码修改弹窗 --------------
-        // $scope.showResetPassword = function(){
-        //     $scope.reset = {password_new:'',password_again:'',password_old:''};
-        //     var user = $rootScope.currentUserInfo;
-        //     $scope.currentUser = {gid:user.gid,name:user.name};
-        //     ngDialog.openConfirm({
-        //         template: '/webapp/v/ModifyPwd/modifyPass.html',
-        //         className: 'ngdialog-theme-default', //弹窗的类名
-        //         controller : ['$scope','params','toastr',function($scope,params,toastr){
-        //             params.gid =  $scope.currentUser.gid;
-        //             $scope.reset = params.reset;
-        //             $scope.checked_staffs = params.gid;
-        //             $scope.dialog_title = params.dialog_title;
-        //             //console.log(JSON.stringify(params.gid));
-        //             //----------- 修改密码 -------------
-        //             $scope.resetPassword = function(){
-        //                 console.log($scope.checked_staffs.toString());
-        //                 console.log('------/webapp/main/showResetPassword()验证开始-------');
-        //                 //md5加密
-        //                 var md5 = new Hashes.MD5;
-        //                 var post_data = {gid:$scope.checked_staffs.toString(),name: $scope.currentUser.name,
-        //                     newPassword1:md5.hex($scope.reset.password_new),newPassword2:md5.hex($scope.reset.password_again),
-        //                     oldPassword:md5.hex($scope.reset.password_old)};
-        //                 console.log('提交的参数'+post_data+'================');
-        //                 if(!$scope.reset.password_new || !$scope.reset.password_again){
-        //                     toastr.error('请输入有效的密码信息！',{timeOut:2000});return;
-        //                 }else if($scope.reset.password_again.length < 6){
-        //                     toastr.error('密码不能小于6位！',{timeOut:2000});return;
-        //                 }else if($scope.reset.password_again.length > 20){
-        //                     toastr.error('密码长度不能大于20位！',{timeOut:2000});return;
-        //                 }
-        //                 if($scope.reset.password_new !== $scope.reset.password_again){
-        //                     toastr.error('两次输入的密码不一致！',{timeOut:2000});return;
-        //                 }
-        //                 $http({
-        //                     method:'POST',
-        //                     url:"/Admin/checkUser",
-        //                     data:post_data
-        //                 }).success(function(res){
-        //                     console.log(JSON.stringify(res)+'----返回结果-----');
-        //                     if(res.result && res.result.toLowerCase() == "true"){
-        //                         console.log('密码修改成功！---------------------------');
-        //                         toastr.success('成功修改了 ' + $scope.currentUser.name + ' 的密码信息！',{timeOut:2000});
-        //                         $scope.closeThisDialog(0);
-        //                     }else{
-        //                         toastr.error(res.msg,{timeOut:2000});
-        //                         console.log(res.msg+'\n'+res.data);
-        //                     }
-        //                 });
-        //             }
-        //             $scope.cancel = function(){$scope.closeThisDialog(0);}
-        //         }],
-        //         preCloseCallback: function(){ //关闭前的触发事件
-        //             return true;
-        //         },
-        //         closeByDocument: false, //点击背景关闭弹窗
-        //         closeByEscape: false, //通过键盘Esc按钮关闭弹窗
-        //         showClose: true, //显示关闭按钮
-        //         scope: $scope,
-        //         appendTo: '#panel', //绑定到哪个元素节点
-        //         resolve: { //将所需参数传递给弹窗的控制器
-        //             params : function(){
-        //                 return {
-        //                     dialog_title : '重置员工密码',
-        //                     reset  : $scope.reset,
-        //                     checked_staffs: $scope.checked_staffs
-        //                 };
-        //             }
-        //         }
-        //     }).then(function (value) {
-        //     }, function (reason) {
-        //     });
-        // }
-        console.log('           AAAA        10 ');
+
 
     setTimeout(function(){
         $scope.addTab('TeamPerformance','/TeamPerformance/list','/TeamPerformance/TeamPerformanceListController','list')
