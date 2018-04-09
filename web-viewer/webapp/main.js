@@ -410,6 +410,10 @@ function ($scope,  $ocLazyLoad,  $http,  instance,  _,  $uibModal,  ngDialog,  $
         // }
         console.log('           AAAA        10 ');
 
+    setTimeout(function(){
+        $scope.addTab('TeamPerformance','/TeamPerformance/list','/TeamPerformance/TeamPerformanceListController','list')
+    }, 500);
+
     }]);
 
 console.log('           888 ');

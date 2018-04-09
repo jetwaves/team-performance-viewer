@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>team-perfomance-viewer</title>
+    <!-- js -->
+    <script src="/fe/jshashes/hashes.min.js"></script>
+    <!--<script src="/fe/lodash/dist/lodash.min.js"></script>-->
+    <script src="/fe/underscore/underscore-min.js"></script>
+
+    <script src="/public/javascripts/jquery-1.9.1.min.js"></script>
+
+    <script src="/public/javascripts/jquery.freezeheader.js"></script>
+    <!--<script src="/js/qs/querystring.min.js"></script> &lt;!&ndash; 用于querystring查询的编码解码 &ndash;&gt;-->
+    <script type="text/javascript" data-main="webapp/webapp" src="/public/javascripts/require.min.js" charset="UTF8"></script>
+
+    <!-- css -->
+    <link  href="/public/stylesheets/bootstrap.min.css" rel="stylesheet">
+    <link  href="/public/stylesheets/style.css" rel="stylesheet">
+
+    <!--<link rel="stylesheet" type="text/css" href="/ngTree/css/tree-control.css">-->
+    <!--<link rel="stylesheet" type="text/css" href="/ngTree/css/tree-control-attribute.css">&lt;!&ndash; 树形结构控件 &ndash;&gt;-->
+
+
+</head>
+
+
+<body class="" ng-controller="layoutController" id="panel" ng-cloak>
+
+<!-- 顶部 -->
+<header class="headStyle">
+    <div class="leftMenu"  data-toggle="tooltip" data-placement="top"  title="显示隐藏菜单" ng-click="toggle_nav()">
+        <i class="glyphicon glyphicon-th-list"></i>
+        <span class="envi" style="font-size: 19px;display: inline-flex;margin-left: 75px"></span>
+    </div>
+    <div class="logoRight" ng-mouseover="showUser=true" ng-mouseleave="showUser=false">
+        <div id="env" style="display:none">< % = env % > </div>
+        <a class="popText">[< % = user.role_name % > : < % = user.name % >] <span class="caret"></span></a>
+        <div class="user" ng-show="showUser">
+            <ul>
+                <li><a class="btn" ng-click="showResetPassword()" style="font-size: 14px;color: #000000">修改密码</a></li>
+                <li><a class="btn" href="/Users/exit" style="font-size: 14px;color: #000000">退出登录</a></li>
+                <li role="separator" class="divider"></li>
+            </ul>
+        </div>
+    </div>
+
+    <div style="clear: both;"></div>
+</header>
+
+
+
+<!-- 边栏(菜单栏) -->
+<div ng-include="'/nav'" id="header"></div>
+<!-- 内容区域 -->
+<div class="WorkbenchMain" id="content" ng-class="{'WorkbenchMain-menuOff': nav_status == false}">
+    <div ng-include="'/Workbench'"></div>
+</div>
+</body>
+
+</html>
