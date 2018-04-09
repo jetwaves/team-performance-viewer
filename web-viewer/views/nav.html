@@ -1,5 +1,5 @@
 <div class="sidebarbg">
-    <ul class="sidebar">
+    <ul class="sidebar" ng-class="{'sidebar-menuOff':nav_status == true}">
         <li ng-click="addTab('首页','/RessourceURI','/ModuleName/ControllerName','SCENE')">
             首页
         </li>
@@ -54,3 +54,20 @@
 
     </ul>
 </div>
+<script>
+    // var env = $("#env").text();
+    var env = 1;
+    if(env == 3 || env =='prod'){
+        $(".sidebar li").css("border-top","1px solid #393941");
+        $(".sidebar").css({"background-color":"#32323a","border-right":"1px solid #32323a"});
+    }else if(env == 1 || env =='dev'){
+        $(".sidebar li").css({"border-top":"1px solid #5391c7","color":"#fff"});
+        $(".sidebar").css({"background-color":"#337ab7","border-right":"1px solid #337ab7"});
+    }else if(env == 2 || env =='int'){
+        $(".sidebar li").css({"color":"#fff","border-top":"1px solid #C5E0DC"});
+        $(".sidebar").css({"background-color":"#1FB5AC","border-right":"1px solid #1FB5AC"});
+    }else{
+        $(".sidebar li").css({"border-top":"1px solid ##8a6798","color":"fff"});
+        $(".sidebar").css({"background-color":"#5b2f6d","border-right":"1px solid #5b2f6d"});
+    }
+</script>

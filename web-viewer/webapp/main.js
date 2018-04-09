@@ -60,6 +60,7 @@ function ($scope,  $ocLazyLoad,  $http,  instance,  _,  $uibModal,  ngDialog,  $
 // adminPanelApp.controller('layoutController', ['$scope', '$ocLazyLoad', '$http', '$uibModal', 'ngDialog','$rootScope', '$cookies',
 //     function ($scope, $ocLazyLoad, $http,  $uibModal,ngDialog, $rootScope, $cookies) {    /*uibModel是弹窗*/
 
+        $scope.nav_status = true;
         //加载DialogService和ListService by Hisheng
         // msg:例如可以全局调用显示机构列表的对话框 Dialog.showStoreList() 依赖注入是 Dialog
         $ocLazyLoad.load(['/webapp/service/DialogService.js', '/webapp/service/ListService.js','/webapp/service/CheckService.js']).then(function (){},function (e){});
@@ -191,6 +192,11 @@ function ($scope,  $ocLazyLoad,  $http,  instance,  _,  $uibModal,  ngDialog,  $
             });
 
         };
+
+        $scope.toggle_nav =function () {
+            $scope.nav_status = ($scope.nav_status == false);
+        }
+
         // /**
         //  *默认加载界面
         //  */

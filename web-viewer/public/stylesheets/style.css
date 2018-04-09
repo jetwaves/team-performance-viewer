@@ -9,20 +9,80 @@ html,body{
 #header{
     /**/
 }
-.clearfix{*zoom:1}
-.clearfix:before,.clearfix:after{
-  content: "";
-  display:table;
-  visibility:hidden;
-  height: 0;
-  clear: both;  
-  content:"";
+
+/*搜索框样式*/
+.search{
+    margin-top: 10px;margin-bottom: 10px;
+}
+.search div{
+    padding: 0 .7% 0 0;
+}
+.search span{
+    padding: 0;
+    line-height: 27px;
 }
 
-.bodyStyle {
+/*头部菜单样式*/
+.logoRight{
+    cursor: pointer;
+    box-sizing: border-box;
+}
+.logoRight:hover{
+    color: #CCCCCC;
+}
+.popText{
+    padding:20px 5px 5px;
+    height:20px;
+    line-height:20px;
+    color:#fff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all .5s;
+}
+.logoRight:hover .popText{
+    color: #eeeeee;
+    text-decoration: none;
+}
+.user>ul{
+    list-style: none;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 3px 3px 12px #eeeeee;
+    padding-left: 0px;
+    overflow: hidden;
+    border: 1px solid #ccc;
+}
+.user>ul>li{
+    padding-left: 20px;
+    border-bottom: 1px dashed #cccccc;
+}
+.user>ul>li:hover{
+    background: #eeeeee;
+}
+.bbacklog>ul{
+    width: 180px;
+    padding: 0;
+    background-color: #fff;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.dropdown-toggle{
+    margin-bottom: 0;
+}
+.clearfix{*zoom:1}
+.clearfix:before,.clearfix:after{
+    content: "";
+    display:table;
+    visibility:hidden;
+    height: 0;
+    clear: both;
+    content:"";
+}
+
+.indexBg {
     /*background-color: #ccc;*/
-    position:relative;
-    padding-top: 50px;
+    /*position:relative;*/
 
 }
 
@@ -51,35 +111,44 @@ html,body{
     top: 0;
     width: 100%;
     z-index: 999;
-    height: 50px;
-    /*background-color: #40a6e8;*/
-    background-color: #4169E1;
+    /*height: 90px;*/
+    height: 38px;
+    line-height: 38px;
+    background-color: #32323a;
     color: #fff;
     /*background:url('../images/logo.jpg') no-repeat scroll left;*/
 }
 .backlog{
     float: right;
-    width: 150px;
-    padding-top: 30px;
+    width: 180px;
+    /*padding-top: 30px;*/
     margin-right: 50px;
+    cursor: pointer;
 }
-
+.backlog:hover>div{
+    color: #eeeeee;
+}
 .logoRight {
     padding-right: 10px;
     height: 30px;
-    padding-top: 30px;
+    /*padding-top: 30px;*/
     float: right;
     color: #fff;
+    list-style: none;
+    margin-right: 30px;
+}
+.dropdown{
+    cursor: pointer;
 }
 /*卡片面板样式 changed by Hisheng*/
 div.tabs-board uib-tab-heading{
-    // position: fixed;
+// position: fixed;
 }
 ul.nav-tabs div.tab-item{
     padding: 8px 10px;
 }
 ul.nav-tabs div.tab-item span.tab-item-name{
-    padding-right: 5px; 
+    padding-right: 5px;
 }
 ul.nav-tabs li a{
     padding: 0;
@@ -91,13 +160,38 @@ ul.nav-tabs li a:hover{
     text-decoration: none;
     color: #555;
 }
-
+.leftMenu{
+    float: left;
+    cursor: pointer;
+    margin-left: 20px;
+    padding: 0 20px 0 0;
+    transition: all .2s;
+}
+.leftMenu_Off{
+    margin-left: 120px;
+}
+.leftMenu i{
+    font-size: 24px;
+    margin-top:5px;
+}
+.leftMenu ul{
+    list-style: none;
+    margin: 10px 0 0 0;
+    padding: 0 0 0 10px;
+}
+.leftMenu ul>li{
+    display: table;
+    padding: 1px 10px;
+    margin: 5px;
+    background: #ffffff;
+}
 
 .sidebar {
     position: fixed;
-    left: 0px;
+    left: -120px;
     bottom: 0px;
-    top: 50px;
+    /*top: 90px;*/
+    top:38px;
     width: 120px;
     color: #fff;
     z-index: 9999;
@@ -105,9 +199,10 @@ ul.nav-tabs li a:hover{
     border-right: 1px solid #202126;
     padding: 0;
     margin: 0;
+    transition: all .2s;
 }
 
-.sidebarbg {
+/* .sidebarbg {
     position: fixed;
     left: 0px;
     bottom: 0px;
@@ -118,15 +213,17 @@ ul.nav-tabs li a:hover{
     padding: 0;
     margin: 0;
     z-index: -1;
+    //background-color: #32323a;
+    background-color: #378752;
     border-right: 1px solid #202126;
-}
+} */
 
 .sidebar li {
     float: left;
     width: 120px;
-    height: 40px;
+    height: 38px;
     text-align: center;
-    line-height: 40px;
+    line-height: 38px;
     cursor: pointer;
     border-top: 1px solid #393941;
     list-style:none;
@@ -143,9 +240,9 @@ ul.nav-tabs li a:hover{
     position: absolute;
     left: 120px;
     top: 0px;
-    // background-color: #1fb5ac;
+// background-color: #1fb5ac;
     background-color: #47ab6b;
-    //background-color: #32323a;
+//background-color: #32323a;
     color: #fcffff;
     padding: 10px;
     width: 550px;
@@ -180,13 +277,20 @@ ul.nav-tabs li a:hover{
 .WorkbenchMain {
     /* margin:10px 10px; */
     margin-left: 130px;
-    margin-top: 100px;
+    /*margin-top: 100px;*/
+    margin-top: 43px;
+    transition: all .2s;
 }
-
+.WorkbenchMain-menuOff{
+    margin-left: 10px;
+}
+.sidebar-menuOff{
+    left: 0px;
+}
 .cls {
     display:block;
-    white-space:nowrap; 
-    overflow:hidden; 
+    white-space:nowrap;
+    overflow:hidden;
     text-overflow:ellipsis;
 }
 /*modal dialog*/
@@ -210,16 +314,16 @@ ul.nav-tabs li a:hover{
     margin-right: 10px;
 }
 .m-top-20{
-    margin-top: 20px;
+    margin-top: 5px;
 }
 .m-bottom-20{
-    margin-bottom: 20px;
+    margin-bottom: 5px;
 }
 .m-left-20{
     margin-left: 20px;
 }
 .m-right-20{
-    margin-right: 20px;
+    margin-right: 10px;
 }
 .center-panel{
     margin: 0px 20px;
@@ -346,10 +450,15 @@ ul.nav-tabs li a:hover{
     bottom: 0px;
     background-color: #fff;
     z-index: 5;
-} 
+    transition: all .2s;
+}
+.pospage-menuOff{
+    left: 15px;
+}
 
-
-
+.search,.search>.row{
+    margin-left: 0;
+}
 
 
 .tableClass {
@@ -374,11 +483,11 @@ ul.nav-tabs li a:hover{
 }
 
 /*.tableClass td:hover{*/
-    /*height: 50px;*/
-    /*width: 200px;*/
-    /*background-color: #ffffff;*/
-    /*font-size: 20px;*/
-    /*text-align: center;*/
+/*height: 50px;*/
+/*width: 200px;*/
+/*background-color: #ffffff;*/
+/*font-size: 20px;*/
+/*text-align: center;*/
 /*}*/
 
 .tableClass td{
@@ -420,7 +529,13 @@ ul.nav-tabs li a:hover{
     right: 2px;
     top: 2px;
 }
-
+.categoryPanelTop .m-right-20{
+    margin-top: 5px;
+}
+.categoryPanelTop{
+    margin-top: -10px;
+    margin-left: 10px;
+}
 
 
 
@@ -639,4 +754,96 @@ a.black-magic-href:hover {
 .td-flex{
     display: flex;
     justify-content: center;
+}
+.StoreStockLogTopHeight label{
+    float: left;
+    line-height: 28px;
+}
+.payLogTopHeight label{
+    float: left;
+    line-height: 28px;
+}
+.WarehouseTopHeight label{
+    float: left;
+    line-height: 28px;
+}
+.ProductSalesReportTopHeight label{
+    float: left;
+    line-height: 28px;
+}
+.FeedbackTopHeight label{
+    float: left;
+    line-height: 28px;
+}
+/*重构商品类别所需样式*/
+.hidd{
+    display: none;
+    overflow: hidden;
+}
+.level1{
+    display: table-row;
+    font-size: 15px;
+    font-weight: bold;
+    color: #000;
+}
+.level2{
+    font-size: 15px;
+    color: rgb(0, 0, 0);
+}
+.level3{
+    font-size: 14px;
+    color: rgb(29, 29, 29);
+}
+.level4{
+    font-size: 13px;
+    color: rgb(67, 67, 67);
+}
+.level5{
+    font-size: 12px;
+}
+
+
+.level2 td:first-child{
+    padding-left: 30px;
+}
+.level3 td:first-child{
+    padding-left: 60px;
+}
+.level4 td:first-child{
+    padding-left: 90px;
+}
+.level5 td:first-child{
+    padding-left: 120px;
+}
+.categoryPanel th{
+    box-sizing: border-box;
+    width: 18%;
+}
+.categoryPanel th:first-child{
+    width: 28%;
+}
+.categoryPanel td{
+    box-sizing: border-box;
+    width: 18%;
+}
+.categoryPanel td:first-child{
+    width: 28%;
+}
+.padding-lf{
+    padding-left: 0;
+    padding-right: 0;
+}
+.storeInfo{
+    color: #1757da;
+    margin-left: 43px;
+    font-size: large;
+    background-color: white;
+    padding: 0 5px;
+}
+.storeInfo-hr{
+    margin-top: -12px;
+    width: 97%;
+}
+.getRtelTable td{
+    font-size: 14px;
 }
