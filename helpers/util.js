@@ -5,8 +5,9 @@ var tool = {
     pickFiledsInData 	: pickFiledsInData,
     subFloat            : subFloat,
     getNowYmdHis        : getNowYmdHis,
-    setAssignDate        : setAssignDate,
+    setAssignDate       : setAssignDate,
     parsePaginateRule   : parsePaginateRule,
+    parseSortParam      : parseSortParam,
     makeCacheKey        : makeCacheKey,
     formatToDate        : formatToDate
 };
@@ -95,6 +96,14 @@ function parsePaginateRule(pages, defaultItemPerPage){
     if(typeof(pageSize) == 'string') pageSize = parseInt(pageSize);
     return {skip: skipNum, limit : pageSize};
 }
+
+function parseSortParam(sortParam){
+    let arr = sortParam.split(':');
+    let res = {};
+    res.arr[0] = arr[1];
+    return res;
+}
+
 
 function makeCacheKey(prefix, paramsArr){
     //console.log('   ---- LOG: ' + __filename + os.EOL + '        prefix  = ');  console.dir(prefix);

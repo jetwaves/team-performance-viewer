@@ -52,14 +52,14 @@
             </div>
         </div>
     </div>
-    <table class="tableClass table-bordered" id="TeamPerformanceList-list">
+    <table class="tableClass table-bordered" id="TeamPerformanceList-table">
         <tr class="pos-i">
-            <th class="dateStr" ng-click="sortBy('date')">截止日期<i class="glyphicon glyphicon-sort"></i>  </th>
+            <th class="date" ng-click="sortBy('date')">截止日期<i class="glyphicon glyphicon-sort"></i>  </th>
             <th class="author" ng-click="sortBy('author')">用户名称<i class="glyphicon glyphicon-sort"></i>  </th>
             <th class="msg" ng-click="sortBy('msg')">提交内容<i class="glyphicon glyphicon-sort"></i>  </th>
             <th class="project" ng-click="sortBy('project')">项目名称<i class="glyphicon glyphicon-sort"></i>  </th>
             <th class="branch" ng-click="sortBy('branch')">分支名称<i class="glyphicon glyphicon-sort"></i>  </th>
-            <th class="hash" ng-click="sortBy('Hash')">hash<i class="glyphicon glyphicon-sort"></i>  </th>
+            <th class="hash" ng-click="sortBy('hash')">hash<i class="glyphicon glyphicon-sort"></i>  </th>
 
         </tr>
         <tbody>
@@ -81,15 +81,18 @@
             <th>--</th>
         </tr>
     </table>
-    <!--<div class="alert alert-danger" role="alert" ng-bind="staff_alert" ng-show="staff_alert"></div>-->
+
     <div class="pospage">
         <div class="col-md-6">
-            <uib-pagination boundary-links="true"total-items="totalItems" max-size='10' ng-change="pageChanged()" num-pages="numPages" ng-model="current_page" class="pagination-sm" previous-text="上页" next-text="下页" first-text="首页" last-text="末页">
+            <uib-pagination boundary-links="true" total-items="totalItems" max-size='10'
+                            ng-change="pageChanged()" num-pages="numPages" ng-model="current_page"
+                            class="pagination-sm" previous-text="上页" next-text="下页" first-text="首页"
+                            last-text="末页" force-ellipses="true" rotate="true" boundary-link-numbers="true">
             </uib-pagination>
         </div>
         <div class="col-md-1">
             <div style="margin-top:20px;">
-                <select class="form-control" ng-model="nums_per_page" ng-change="pageChanged(1)">
+                <select class="form-control" ng-model="nums_per_page" ng-change="pageChanged()">
                     <option value="10">10</option>
                     <option value="20">20</option>
                     <option value="50">50</option>

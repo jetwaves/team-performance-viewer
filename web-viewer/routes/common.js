@@ -1,7 +1,4 @@
 /*          所有控制器公用的依赖类库        */
-// cacheHelper = require('../helpers/cachehelper.js');
-// util = require('../helpers/util');
-// myApp = require('../helpers/myApp');
 
 var async = require('async');
 var moment = require('moment');
