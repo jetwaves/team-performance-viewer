@@ -5,7 +5,6 @@ require('./common');
 
 let moment = require('moment');
 let util = require('../../helpers/util.js');
-
 let config = require('../../config/config.js');
 
 
@@ -21,18 +20,18 @@ function teamPerformanceList(req,res){
 function search(req,res,next){
     console.log('           req.body  = ');  console.dir(req.body);
     let queryParam = {};
-    let start_ts = req.body.start_time;         // 查询起始时间
-    let end_ts   = req.body.end_time;         // 查询结束时间
-    if(start_ts && !end_ts) queryParam.date = { $gte: start_ts };
-    if(!start_ts && end_ts) queryParam.date = { $lte: end_ts };
-    if(start_ts && end_ts)  queryParam.date = { $gte: start_ts, $lte: end_ts };
+    let queryDate = undefined;
+    if(queryDate = util.parseStartEndTime(req.body)){
+        queryParam.date = queryDate;
+    }
+
+
     if(req.body.author) queryParam.author = queryParam.author = eval("/" + req.body.author + "/i"); // query with 'like' as SQL
     if(req.body.project) queryParam.project = req.body.project;
     if(req.body.branch) queryParam.branch = req.body.branch;
-    if(req.body.msg) queryParam.msg = queryParam.msg = eval("/" + req.body.msg + "/i");;
+    if(req.body.msg) queryParam.msg = queryParam.msg = eval("/" + req.body.msg + "/i");
     if(req.body.hash) queryParam.hash = req.body.hash;
 
-    // console.log('           req.body  = ');  console.dir(req.body);
     let paginate = {};
     if(req.body.pages){
         paginate = util.parsePaginateRule(req.body.pages, 50);       // 把分页规则变成  skip 和 take,  默认每页50条
@@ -40,6 +39,8 @@ function search(req,res,next){
     let sortParam = {};
     let arr = req.body.sortParam.split(':');
     sortParam[arr[0]] = parseInt(arr[1]);
+
+    console.log('           queryParam  = ');  console.dir(queryParam);
 
     let mongojs = require('mongojs');
     // let db = mongojs('userName:userPassword@hostName/DatabaseName', ['collectionName']);  // like // let db = mongojs('git:123456@127.0.0.1/gitperf', ['test']);

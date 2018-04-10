@@ -7,6 +7,7 @@ var tool = {
     getNowYmdHis        : getNowYmdHis,
     setAssignDate       : setAssignDate,
     parsePaginateRule   : parsePaginateRule,
+    parseStartEndTime   : parseStartEndTime,
     parseSortParam      : parseSortParam,
     makeCacheKey        : makeCacheKey,
     formatToDate        : formatToDate
@@ -102,6 +103,16 @@ function parseSortParam(sortParam){
     let res = {};
     res.arr[0] = arr[1];
     return res;
+}
+
+function parseStartEndTime(reqBody){
+    let ret = undefined;
+    let start_ts = reqBody.start_time;         // 查询起始时间
+    let end_ts   = reqBody.end_time;         // 查询结束时间
+    if(start_ts && !end_ts) ret = { $gte: start_ts };
+    if(!start_ts && end_ts) ret = { $lte: end_ts };
+    if(start_ts && end_ts)  ret = { $gte: start_ts, $lte: end_ts };
+    return ret;
 }
 
 
