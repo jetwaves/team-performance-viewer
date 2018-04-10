@@ -6,6 +6,9 @@ require('./common');
 let moment = require('moment');
 let util = require('../../helpers/util.js');
 
+let config = require('../../config/config.js');
+
+
 router.get('/list',teamPerformanceList);
 router.post('/search',search);
 
@@ -23,7 +26,7 @@ function search(req,res,next){
     if(start_ts && !end_ts) queryParam.date = { $gte: start_ts };
     if(!start_ts && end_ts) queryParam.date = { $lte: end_ts };
     if(start_ts && end_ts)  queryParam.date = { $gte: start_ts, $lte: end_ts };
-    if(req.body.author) queryParam.author = queryParam.author = eval("/" + req.body.author + "/i");
+    if(req.body.author) queryParam.author = queryParam.author = eval("/" + req.body.author + "/i"); // query with 'like' as SQL
     if(req.body.project) queryParam.project = req.body.project;
     if(req.body.branch) queryParam.branch = req.body.branch;
     if(req.body.msg) queryParam.msg = queryParam.msg = eval("/" + req.body.msg + "/i");;
@@ -34,23 +37,15 @@ function search(req,res,next){
     if(req.body.pages){
         paginate = util.parsePaginateRule(req.body.pages, 50);       // 把分页规则变成  skip 和 take,  默认每页50条
     }
-    // console.log("\r\n"+moment().format('Y/MM/DD HH:mm:ss\t\t\t\t')+__filename);
-    // console.log('┏---- INFO: ----- start [paginate @ ] -----');console.dir(paginate);console.log('┗---- INFO: -----  end  [paginate @ ] -----');
-    let sortParam = undefined;
-    if(req.body.sortParam){
-        let arr = req.body.sortParam.split(':');
-        switch(arr[0]){                     // js不允许用变量做kv对的key，只能这么写
-            case 'date':    sortParam = {'date':       parseInt(arr[1])};   break;
-            case 'author':  sortParam = {'author':     parseInt(arr[1])};   break;
-            case 'msg':     sortParam = {'msg':        parseInt(arr[1])};   break;
-            case 'project': sortParam = {'project':    parseInt(arr[1])};   break;
-            case 'branch':  sortParam = {'branch':     parseInt(arr[1])};   break;
-            case 'hash':    sortParam = {'hash':       parseInt(arr[1])};   break;
-        }
-    }
+    let sortParam = {};
+    let arr = req.body.sortParam.split(':');
+    sortParam[arr[0]] = parseInt(arr[1]);
 
     let mongojs = require('mongojs');
-    let db = mongojs('git:123456@127.0.0.1/gitperf', ['test']);
+    // let db = mongojs('userName:userPassword@hostName/DatabaseName', ['collectionName']);  // like // let db = mongojs('git:123456@127.0.0.1/gitperf', ['test']);
+    let db = mongojs( config.mongoDB.user + ':' + config.mongoDB.password + '@'
+                    + config.mongoDB.host + ':' + config.mongoDB.port     + '/'
+                    + config.mongoDB.db, [ config.mongoDB.collection]);
     let col = db.collection('test');
     // console.log("\r\n"+moment().format('Y/MM/DD HH:mm:ss\t\t\t\t')+__filename);
     // console.log('┏---- INFO: ----- start [queryParam @ ] -----');console.dir(queryParam);console.log('┗---- INFO: -----  end  [queryParam @ ] -----');
