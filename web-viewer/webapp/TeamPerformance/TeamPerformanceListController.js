@@ -18,21 +18,34 @@ function($scope,  $http,   _,  $rootScope,  ngDialog,  $ocLazyLoad,  toastr,  Di
         $scope.params.branch = '';
         $scope.params.hash = '';
 
+    $scope.resetParams = function(){
+        $scope.params.sortParam = 'date:-1';       //  默认用来排序的字段和顺序逆序    -1为逆序
+        $scope.params.start_time = moment().subtract(70, 'days').format('YYYY-MM-DD HH:mm');     //  RFC 2822 format
+        $scope.params.end_time = '';
+        $scope.params.date = '';
+        $scope.params.author = '';
+        $scope.params.msg = '';
+        $scope.params.project = '';
+        $scope.params.branch = '';
+        $scope.params.hash = '';
+    };
+    $scope.resetParams();
+
     //--------------------初始化操作----------------------
     //--------------------查询----------------------
     $scope.search = function(type){
-        console.log('┏---- INFO: ----- start [$scope.params @ ] -----');console.dir($scope.params);console.log('┗---- INFO: -----  end  [$scope.params @ ] -----');
         $scope.loading = 'loading';
         var postData = {};          // 注意这里要用对象不能用数组 [];
 
-        if($scope.params.start_date) postData.start_date = $scope.params.start_date;
-        if($scope.params.end_date) postData.end_date = $scope.params.end_date;
-        if($scope.params.author) postData.author = $scope.params.author;
-        if($scope.params.msg) postData.msg = $scope.params.msg;
-        if($scope.params.project) postData.project = $scope.params.project;
-        if($scope.params.branch) postData.branch = $scope.params.branch;
-        if($scope.params.hash) postData.hash = $scope.params.hash;
-        if($scope.params.sortParam) postData.sortParam = $scope.params.sortParam;
+        console.log('           $scope.params.start_time  = ');  console.dir($scope.params.start_time);
+        if($scope.params.start_time !== '' && $scope.params.start_time !== undefined) postData.start_time = moment($scope.params.start_time).format('X');
+        if($scope.params.end_time !== '' && $scope.params.end_time !== undefined) postData.end_time = moment($scope.params.end_time).format('X');
+        if($scope.params.author !== '') postData.author = $scope.params.author;
+        if($scope.params.msg !== '') postData.msg = $scope.params.msg;
+        if($scope.params.project !== '') postData.project = $scope.params.project;
+        if($scope.params.branch !== '') postData.branch = $scope.params.branch;
+        if($scope.params.hash !== '') postData.hash = $scope.params.hash;
+        if($scope.params.sortParam !== '') postData.sortParam = $scope.params.sortParam;
 
         postData.pages = $scope.current_page +':'+$scope.nums_per_page;
 
@@ -44,7 +57,7 @@ function($scope,  $http,   _,  $rootScope,  ngDialog,  $ocLazyLoad,  toastr,  Di
                     $scope.numPages = Math.ceil(data.data.count / $scope.nums_per_page);
                     // console.log('           $scope.numPages       = ');  console.dir($scope.numPages);
                     $scope.gitPerfListItems = data.data.data;
-
+                    console.log('           $scope.gitPerfListItems  = ');  console.dir($scope.gitPerfListItems);
                     var newHeight = $(window).height()- 220 - $(".TeamPerformanceList-TopHeight").height();
                     $("#TeamPerformanceList-table").find("tbody").css({"max-height":newHeight+"px"});
                 } else {
