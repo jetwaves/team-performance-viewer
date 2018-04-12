@@ -23,40 +23,40 @@ var app = express();
 // require('./routes/common');
 //
 // var localConfig = require('./config/config.js');
-// var auth = require('./routes/auth.js');
+var auth = require('./routes/auth.js');
 //
-// // passport 鉴权和session相关依赖
-// var session = require('express-session');
-// var FileStore = require('session-file-store')(session);
-// var passport = require('passport');
-// var LocalStrategy = require('passport-local').Strategy;
-//
-// // session 相关设置
-// app.use(session({
-//     /*store: new FileStore(sessionOptions),*/   /*不用 FileStore 就存入内存了, 以后换成mongodb */
-//     secret: localConfig.session_secret,
-//     retries: 50,    maxTimeout: 15000,
-//     resave: true, saveUninitialized: true,
-//     maxAge : 86400
-//
-// }));
-//
-// passport.use(new LocalStrategy({passReqToCallback: true},
-//     function(req,username, password, done) {
-//         console.log('  LocalStrategy()      start ');
-//         auth.checkUser(req,username, password,function(err, res){
-//             console.log('  LocalStrategy()      checkUser callback()  ');
-//             if(err){
-//                 console.log('   checkUser   callback      error ');
-//                 return done(err, null);      // TODO： 这里要改成404
-//             }else{
-//                 console.log('   checkUser   callback      success ');
-//                 return done(null, res);
-//             }
-//         });
-//     }
-// ));
+// passport 鉴权和session相关依赖
+var session = require('express-session');
+var FileStore = require('session-file-store')(session);
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 
+// session 相关设置
+app.use(session({
+    /*store: new FileStore(sessionOptions),*/   /*不用 FileStore 就存入内存了, 以后换成mongodb */
+    secret: localConfig.session_secret,
+    retries: 50,    maxTimeout: 15000,
+    resave: true, saveUninitialized: true,
+    maxAge : 86400
+
+}));
+
+// 声明passport中间件的 LocalStrategy 本地（自定义）鉴权策略
+passport.use(new LocalStrategy({passReqToCallback: true},
+    function(req,username, password, done) {
+        console.log('  LocalStrategy()      start ');
+        auth.checkUser(req,username, password,function(err, res){
+            console.log('  LocalStrategy()      checkUser callback()  ');
+            if(err){
+                console.log('   checkUser   callback      error ');
+                return done(err, null);      // TODO： 这里要改成404
+            }else{
+                console.log('   checkUser   callback      success ');
+                return done(null, res);
+            }
+        });
+    }
+));
 
 
 
@@ -73,6 +73,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 
+
+//  =========== 以下是静态路由部分 ==============
 app.use('/public', express.static(__dirname + '/public'));                        // 映射public 目录
 app.use('/fe', express.static(path.join( path.dirname(__dirname), 'bower_components')) ); // 映射Bower 静态目录
 app.use('/vc', express.static(path.join( __dirname, 'webapp', 'vc')) );           // 映射Vuejs controller 静态目录
@@ -83,7 +85,97 @@ app.use('/webapp/angular-sanitize.js', express.static(path.join( path.dirname(__
 
 
 
+// passport 把用户信息序列化和反序列化存入cookie
+passport.serializeUser(function (user, cb) {
+    //console.log('   ---- LOG: ' + __filename + os.EOL + '      serializeUser:  user  = ');  console.dir(user);
+    cb(null, JSON.stringify(user));
+});
 
+passport.deserializeUser(function (user, cb) {
+    //console.log('   deserializeUser  user = ');  console.dir(user);
+    try {
+        user = JSON.parse(user);
+        cb(null, user);
+    } catch (err) {
+        console.log('       passport.deserializeUser   fail.    ERR = ');
+        console.dir(err);
+        return cb('fail');
+    }
+});
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+app.use(function (req, res, next) {
+    req.settings = app.settings;
+    if (req.user) {           // 登录后把用户身份加入req.body
+        req.body.DRC_user_gid = req.user.gid;                   // 用户gid
+    }
+    //console.dir(req.settings);
+    next();
+});
+
+app.get('/favicon.ico', function(req, res){
+    res.end();
+});
+
+app.post('/login',      // 处理空密码
+    function (req, res, next) {
+        //console.log('           req.body  = ');  console.dir(req.body);
+        if (!req.body.username) {
+            res.redirect('/login?msg=LOGIN_USERNAME_NULL');
+            return;
+        }
+        if (!req.body.password) {
+            res.redirect('/login?msg=LOGIN_PASSWORD_NULL');
+            return;
+        }
+        next();
+    }
+);
+
+
+// if (sysConf.system.activate_login_captcha) {
+//     app.post('/login',      // 核对验证码
+//         function (req, res, next) {
+//             var inputCode = req.body.code;
+//             //var codeCompData = { inputCode : inputCode, sessionCode : req.session.code};
+//             //console.log('   ---- LOG: ' + __filename + os.EOL + '        codeCompData  = ');  console.dir(codeCompData);
+//             if (inputCode == req.session.code) {
+//                 next();
+//             } else {
+//                 res.redirect('/login?msg=LOGIN_VERIFY_ERROR');
+//             }
+//         }
+//     );
+// }
+
+app.post('/login',
+    passport.authenticate('local', {failureRedirect: '/login', failureFlash: true}),
+    function (req, res, next) {
+        console.log('login success');  // console.dir(req.user);
+        console.log('           req.app.locals = ');
+        console.dir(req.app.locals);
+        console.log('           req.user  = ');
+        console.dir(req.user);
+        if (req.user.authResult && req.user.authResult == 'false') {        // 失败
+            console.log('           req.user.result is false = ');
+            var msg = req.user.msg;
+            res.json({result: false, data: msg});
+            // res.redirect('/login?msg=' + msg);
+        } else {
+            res.json({result: true, data: ''});
+            res.redirect('/panel');
+        }
+
+    }
+);
+
+
+
+
+//  =========== 以下是动态路由部分 ==============
 app.use('/', indexRouter);
 app.use('/TeamPerformance', TeamPerformanceRouter);
 

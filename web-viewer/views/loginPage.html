@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title><%=uiConf.page_title%></title>
+    <script src="/js/jq/jquery.min.js"></script>
+    <link  href="/public/stylesheets/bootstrap.min.css" rel="stylesheet">
+    <script src="/public/javascripts/bootstrap.min.js"></script>
+    <script src="/js/hash/hashes.min.js"></script>
+    <script src="/js/toastr/toastr.min.js"></script>
+    <link rel="stylesheet" href="/js/toastr/toastr.min.css"/>
+    <style>
+        body{
+            background-color: #323b55;
+            vertical-align: middle;
+        }
+        .row{
+            margin-top: 10px;
+        }
+        .loginPrompt{
+            font-size: 10rem;
+            font: "微软雅黑", "宋体", Arial, Helvetica, sans-serif;
+            color: white;
+        }
+        .no-border{
+            margin-left: 0px;
+            margin-right: 0px;
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container-fluid" style="">
+    <div class="form" style="position:absolute;top:35%;left:35%">
+        <form id="slick-login" action="/login" method="post">
+            <div class="row loginPrompt">
+                <h2><%=uiConf.page_title%> - 登录：</h2>
+            </div>
+            <div class="row"><input name="username" class="form-control" placeholder="用户名" type="text" value="" id="name"></div>
+            <div class="row"><input name="password" class="form-control" placeholder="密码" type="password" value="" id="password"></div>
+            <div class="row">
+                <div class="form-group no-border">
+                    <div class="col-md-5" style="padding-left: 0px;padding-right: 0px">
+                        <img id="captcha" class="" style="width: 100%;max-height: 100%" src="/captcha/update" alt="" onclick="javascript:refreshCaptcha()"/>
+                    </div>
+                    <div class="col-md-1">
+                        <span style="vertical-align: middle;color: white;font-size: 3rem;padding-left: 0px">=</span>
+                    </div>
+                    <div class="col-md-6 no-border">
+                        <input name="code" class="form-control"  placeholder="请输入图中算式的结果" autocomplete="off" type="text" value="" id="code">
+                    </div>
+                </div>
+            </div>
+            <div class="row"><input class="form-control" value="点我登录" type="submit" onclick="javascript:login();"></div>
+        </form>
+    </div>
+
+    <div class="row" style="bottom: 10px;position: absolute;color: #33aaff;width: 100%">
+        <p style="text-align: center">Copyright ©<%=uiConf.copy_right_year%> <%=uiConf.company_cns_abbrev%> <%=uiConf.company_web_site%> All Rights Reserved　 |　<%=uiConf.company_cns_name%>　|　<a href="http://www.miitbeian.gov.cn"><%=uiConf.ICP_beian_sn%></a></p>
+    </div>
+</div>
+</div>
+
+</body></html>
+<script>
+    function login(){
+        var md5 = new Hashes.MD5;
+        var pwdField = $("#password");
+//        console.log(' password before sha1 = ' + pwdField.val());
+//        console.dir(pwdField);
+        pwdField.val(md5.hex(pwdField.val()));
+//        console.log(' password after sha1 = ' + pwdField.val());
+        $('#slick-login').submit();
+    }
+
+    function refreshCaptcha(){
+        var now = new Date();
+        var ts = now.getMilliseconds();
+        document.getElementById('captcha').setAttribute('src', '/captcha/update?v=' + ts );
+    }
+
+    $(document).ready(function(){
+        if(window.location && window.location.search ){
+            var msg = window.location.search.substring(5);
+            console.log('           msg  = ');  console.dir(msg);
+            toastr.options.positionClass = 'toast-top-center';
+            switch(msg){
+                case 'LOGIN_UNKNOWN_ERROR':
+                    toastr.error('未知错误，请联系管理员','!!' );
+                    break;
+                case 'LOGIN_STAFF_NOT_EXIST':
+                    toastr.error('员工账号不存在','!!' );
+                    break;
+                case 'LOGIN_STAFF_NOT_ACTIVATED':
+                    toastr.error('员工账号尚未激活','!!' );
+                    break;
+                case 'LOGIN_STAFF_NOT_ALLOW_FOR_ADMIN':
+                    toastr.error('此账号没有权限访问后台','!!' );
+                    break;
+                case 'LOGIN_PASSWORD_ERROR':
+                    toastr.error('密码错误，请重试','!!' );
+                    break;
+                case 'LOGIN_VERIFY_ERROR':
+                    toastr.error('验证码错误，请重试' );
+                    break;
+                case 'LOGIN_STAFF_RESIGNED':
+                    toastr.error('员工已离职，不允许登录','!!' );
+                    break;
+                case 'LOGIN_USERNAME_NULL':
+                    toastr.error('请输入用户名','!!' );
+                    break;
+                case 'LOGIN_PASSWORD_NULL':
+                    toastr.error('请输入密码','!!' );
+                    break;
+                default:
+                    toastr.error(msg,'!!' );
+            }
+        }
+    });
+
+</script>
