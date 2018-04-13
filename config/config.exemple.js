@@ -9,16 +9,16 @@ var config = {
     //     api_url : '/api',            /* 这个url在模块对外暴露前会被拼接成完整的  http://hostname:port/uri 格式   */
     // },
 
-    // ui  :   {
-    //     company             : '',                   //  company abbreviation str
-    //     page_title          : '',                   //  进入系统后浏览器标签的title，可以自定义
-    //     company_cns_name    : '',                   //  公司中文名
-    //     company_web_site    : '',                   //  公司网站
-    //     company_cns_abbrev  : '',                   //  公司中文简称
-    //     ICP_beian_sn        : '',                   //  ICP备案号
-    //     copy_right_year     : '',                   //  版权有效期
-    //     title_pic           : ''                    //  暂时没用
-    // },
+    ui  :   {
+        company             : 'company',                   //  company abbreviation str
+        page_title          : 'page_title',                   //  进入系统后浏览器标签的title，可以自定义
+        company_cns_name    : 'company_cns_name',                   //  公司中文名
+        company_web_site    : 'company_web_site',                   //  公司网站
+        company_cns_abbrev  : 'company_cns_abbrev',                   //  公司中文简称
+        ICP_beian_sn        : 'ICP_beian_sn',                   //  ICP备案号
+        copy_right_year     : 'copy_right_year',                   //  版权有效期
+        title_pic           : 'title_pic'                    //  暂时没用
+    },
 
     system  :   {
         env             : 'dev',                       //   [dev, int, prod]

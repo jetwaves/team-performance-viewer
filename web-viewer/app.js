@@ -4,7 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var path = require('path');
-
+var fs = require('fs');
 
 var moment = require('moment');
 
@@ -22,7 +22,8 @@ var app = express();
 
 // require('./routes/common');
 //
-// var localConfig = require('./config/config.js');
+
+var localConfig = require('../config/config.js');
 var auth = require('./routes/auth.js');
 //
 // passport 鉴权和session相关依赖
@@ -34,7 +35,7 @@ var LocalStrategy = require('passport-local').Strategy;
 // session 相关设置
 app.use(session({
     /*store: new FileStore(sessionOptions),*/   /*不用 FileStore 就存入内存了, 以后换成mongodb */
-    secret: localConfig.session_secret,
+    secret: localConfig.system.session_secret,
     retries: 50,    maxTimeout: 15000,
     resave: true, saveUninitialized: true,
     maxAge : 86400

@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
-    <title><%=uiConf.page_title%></title>
+    <title><%=ui.page_title%></title>
     <script src="/js/jq/jquery.min.js"></script>
     <link  href="/public/stylesheets/bootstrap.min.css" rel="stylesheet">
     <script src="/public/javascripts/bootstrap.min.js"></script>
@@ -37,29 +37,31 @@
     <div class="form" style="position:absolute;top:35%;left:35%">
         <form id="slick-login" action="/login" method="post">
             <div class="row loginPrompt">
-                <h2><%=uiConf.page_title%> - 登录：</h2>
+                <h2><%=ui.page_title%> - 登录：</h2>
             </div>
             <div class="row"><input name="username" class="form-control" placeholder="用户名" type="text" value="" id="name"></div>
             <div class="row"><input name="password" class="form-control" placeholder="密码" type="password" value="" id="password"></div>
-            <div class="row">
-                <div class="form-group no-border">
-                    <div class="col-md-5" style="padding-left: 0px;padding-right: 0px">
-                        <img id="captcha" class="" style="width: 100%;max-height: 100%" src="/captcha/update" alt="" onclick="javascript:refreshCaptcha()"/>
-                    </div>
-                    <div class="col-md-1">
-                        <span style="vertical-align: middle;color: white;font-size: 3rem;padding-left: 0px">=</span>
-                    </div>
-                    <div class="col-md-6 no-border">
-                        <input name="code" class="form-control"  placeholder="请输入图中算式的结果" autocomplete="off" type="text" value="" id="code">
+            <% if (enable_login_captcha == 1){ %>
+                <div class="row">
+                    <div class="form-group no-border">
+                        <div class="col-md-5" style="padding-left: 0px;padding-right: 0px">
+                            <img id="captcha" class="" style="width: 100%;max-height: 100%" src="/captcha/update" alt="" onclick="javascript:refreshCaptcha()"/>
+                        </div>
+                        <div class="col-md-1">
+                            <span style="vertical-align: middle;color: white;font-size: 3rem;padding-left: 0px">=</span>
+                        </div>
+                        <div class="col-md-6 no-border">
+                            <input name="code" class="form-control"  placeholder="请输入图中算式的结果" autocomplete="off" type="text" value="" id="code">
+                        </div>
                     </div>
                 </div>
-            </div>
+            <% } %>
             <div class="row"><input class="form-control" value="点我登录" type="submit" onclick="javascript:login();"></div>
         </form>
     </div>
 
     <div class="row" style="bottom: 10px;position: absolute;color: #33aaff;width: 100%">
-        <p style="text-align: center">Copyright ©<%=uiConf.copy_right_year%> <%=uiConf.company_cns_abbrev%> <%=uiConf.company_web_site%> All Rights Reserved　 |　<%=uiConf.company_cns_name%>　|　<a href="http://www.miitbeian.gov.cn"><%=uiConf.ICP_beian_sn%></a></p>
+        <p style="text-align: center">Copyright ©<%=ui.copy_right_year%> <%=ui.company_cns_abbrev%> <%=ui.company_web_site%> All Rights Reserved　 |　<%=ui.company_cns_name%>　|　<a href="http://www.miitbeian.gov.cn"><%=ui.ICP_beian_sn%></a></p>
     </div>
 </div>
 </div>
