@@ -18,10 +18,7 @@ var TeamPerformanceRouter = require('./routes/TeamPerformance');
 
 var app = express();
 
-
-
 // require('./routes/common');
-//
 
 var localConfig = require('../config/config.js');
 var auth = require('./routes/auth.js');
@@ -47,13 +44,17 @@ passport.use(new LocalStrategy({passReqToCallback: true},
     function(req,username, password, done) {
         console.log('  LocalStrategy()      start ');
         auth.checkUser(req,username, password,function(err, res){
-            console.log('  LocalStrategy()      checkUser callback()  ');
-            if(err){
-                console.log('   checkUser   callback      error ');
-                return done(err, null);      // TODO： 这里要改成404
+            // console.log('  LocalStrategy()      checkUser callback()  ');
+            if(err){        // 后台鉴权期间报错扔Error的地方在这里处理    AUTH_ERROR_EVENT_HANDLER
+                console.log('           AUTH_ERROR_EVENT_HANDLER    ERR:  err  = ');  console.dir(err);
+                return done(null, { msg: err.toString(), authResult: false });      // 按ajax策略，这里通常是进不来的，只有server内部错误才会进来
             }else{
-                console.log('   checkUser   callback      success ');
-                return done(null, res);
+                console.log('           LocalStrategy  callback      success ');
+                if(res && res.authResult && res.authResult === false ){             // 鉴权失败并返回错误信息的情况
+                    return done(null, res);
+                } else {                                                //  鉴权成功的情况
+                    return done(null, res);
+                }
             }
         });
     }
@@ -121,17 +122,11 @@ app.get('/favicon.ico', function(req, res){
     res.end();
 });
 
-app.post('/login',      // 处理空密码
+
+app.post('/login',      // 处理空用户名和密码
     function (req, res, next) {
-        //console.log('           req.body  = ');  console.dir(req.body);
-        if (!req.body.username) {
-            res.redirect('/login?msg=LOGIN_USERNAME_NULL');
-            return;
-        }
-        if (!req.body.password) {
-            res.redirect('/login?msg=LOGIN_PASSWORD_NULL');
-            return;
-        }
+        if (!req.body.username) return res.json({result: false, err: 'LOGIN_USERNAME_NULL', msg: '用户名不能为空'});
+        if (!req.body.password)  res.json({result: false, err: 'LOGIN_USERNAME_NULL', msg: '密码不能为空'});
         next();
     }
 );
@@ -152,24 +147,19 @@ app.post('/login',      // 处理空密码
 //     );
 // }
 
+
 app.post('/login',
-    passport.authenticate('local', {failureRedirect: '/login', failureFlash: true}),
+    passport.authenticate('local', {failureRedirect: '/login', failureFlash: false}),
     function (req, res, next) {
         console.log('login success');  // console.dir(req.user);
-        console.log('           req.app.locals = ');
-        console.dir(req.app.locals);
-        console.log('           req.user  = ');
-        console.dir(req.user);
-        if (req.user.authResult && req.user.authResult == 'false') {        // 失败
-            console.log('           req.user.result is false = ');
-            var msg = req.user.msg;
-            res.json({result: false, data: msg});
-            // res.redirect('/login?msg=' + msg);
-        } else {
-            res.json({result: true, data: ''});
-            res.redirect('/panel');
-        }
+        console.log("\r\n"+moment().format('Y/MM/DD HH:mm:ss\t\t\t\t')+__filename);
+        console.log('┏---- INFO: ----- start [req.user @ ] -----');console.dir(req.user);console.log('┗---- INFO: -----  end  [req.user @ ] -----');
 
+        if(req.user.authResult === false){
+            res.json({result: false, data: req.user.msg, msg: req.user.msg});
+        } else {
+            res.json({result: true, data: '', msg: 'user authenticated successfully '});
+        }
     }
 );
 
