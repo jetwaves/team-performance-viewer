@@ -23,6 +23,10 @@ var config = {
     system  :   {
         env             : 'dev',                       //   [dev, int, prod]
         session_secret  : 'local session secret for session store',
+        testAdmin : {
+            username: 'admin',
+            password: '1'
+        }
     },
 
     admin: {        /*  管理后台管理员相关配置  */
