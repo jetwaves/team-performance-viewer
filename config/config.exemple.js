@@ -23,6 +23,7 @@ var config = {
     system  :   {
         env             : 'dev',                       //   [dev, int, prod]
         session_secret  : 'local session secret for session store',
+        enable_login_captcha : 0,
         testAdmin : {
             username: 'admin',
             password: '1'
