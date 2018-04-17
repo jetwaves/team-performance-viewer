@@ -85,23 +85,26 @@
     <div class="pospage">
         <div class="col-md-6">
             <uib-pagination boundary-links="true" total-items="totalItems" max-size='10'
-                            ng-change="pageChanged()" num-pages="numPages" ng-model="current_page"
+                            ng-change="pageChanged()" ng-model="current_page" items-per-page="nums_per_page"
                             class="pagination-sm" previous-text="上页" next-text="下页" first-text="首页"
                             last-text="末页" force-ellipses="true" rotate="true" boundary-link-numbers="true">
             </uib-pagination>
         </div>
+
         <div class="col-md-1">
             <div style="margin-top:20px;">
-                <select class="form-control" ng-model="nums_per_page" ng-change="pageChanged()">
+                <select class="form-control" ng-model="nums_per_page" ng-change="pageChanged()" id="itemsPerPage">
                     <option value="10">10</option>
                     <option value="20">20</option>
                     <option value="50">50</option>
                     <option value="100">100</option>
                     <option value="1000">1000</option>
+                    <option value="5000">5000</option>
                 </select>
             </div>
         </div>
-        <div class="col-md-2">
+
+        <div class="col-md-1">
             <div class="input-group" style="margin-top:20px;">
                 <input type="text" class="form-control" placeholder="page" ng-model="current_page">
                 <span class="input-group-btn">
@@ -109,8 +112,8 @@
                 </span>
             </div>
         </div>
-        <div class="col-md-2" style="padding-top:25px;text-align:center">共[ <b>{{totalItems}}</b> ]条记录</div>
-        <div class="col-md-1" style="padding-top:25px;text-align:center">{{current_page}}/{{numPages}}</div>
+        <div class="col-md-2" style="padding-top:25px;text-align:center">共[ <b>{{totalItems}}</b> ]条记录 - {{nums_per_page}} 条/页</div>
+        <div class="col-md-1" style="padding-top:25px;text-align:center">{{current_page}} / {{numPages}}</div>
     </div>
 </div>
 

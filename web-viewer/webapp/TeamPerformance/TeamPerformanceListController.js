@@ -7,7 +7,7 @@ function($scope,  $http,   _,  $rootScope,  ngDialog,  $ocLazyLoad,  toastr,  Di
         $scope.current_page = 1;
         $scope.totalItems = 0;
         $scope.numPages = 1;
-        $scope.nums_per_page = 20;
+        $scope.nums_per_page = 50;
         $scope.loading = 'load';
         $scope.params = [];
         $scope.params.sortParam = 'date:-1';       //  默认用来排序的字段和顺序逆序    -1为逆序
@@ -18,9 +18,11 @@ function($scope,  $http,   _,  $rootScope,  ngDialog,  $ocLazyLoad,  toastr,  Di
         $scope.params.branch = '';
         $scope.params.hash = '';
 
+
     $scope.resetParams = function(){
         $scope.params.sortParam = 'date:-1';       //  默认用来排序的字段和顺序逆序    -1为逆序
         $scope.params.start_time = moment().subtract(7, 'days').format('YYYY-MM-DD HH:mm');     //  RFC 2822 format
+        // $scope.params.start_time = '';     //  RFC 2822 format
         $scope.params.end_time = '';
         $scope.params.date = '';
         $scope.params.author = '';
@@ -51,7 +53,10 @@ function($scope,  $http,   _,  $rootScope,  ngDialog,  $ocLazyLoad,  toastr,  Di
                 if(data.status === 200){
                     $scope.loading = 'loaded';
                     $scope.totalItems = data.data.count;
+                    console.log('           data.data.count         = ');  console.dir(data.data.count);
+                    console.log('           $scope.nums_per_page    = ');  console.dir($scope.nums_per_page);
                     $scope.numPages = Math.ceil(data.data.count / $scope.nums_per_page);
+                    console.log('           $scope.numPages  = ');  console.dir($scope.numPages);
                     // console.log('           $scope.numPages       = ');  console.dir($scope.numPages);
                     $scope.gitPerfListItems = data.data.data;
                     console.log('           $scope.gitPerfListItems  = ');  console.dir($scope.gitPerfListItems);
