@@ -53,16 +53,11 @@ function($scope,  $http,   _,  $rootScope,  ngDialog,  $ocLazyLoad,  toastr,  Di
                 if(data.status === 200){
                     $scope.loading = 'loaded';
                     $scope.totalItems = data.data.count;
-                    console.log('           data.data.count         = ');  console.dir(data.data.count);
-                    console.log('           $scope.nums_per_page    = ');  console.dir($scope.nums_per_page);
                     $scope.numPages = Math.ceil(data.data.count / $scope.nums_per_page);
-                    console.log('           $scope.numPages  = ');  console.dir($scope.numPages);
-                    // console.log('           $scope.numPages       = ');  console.dir($scope.numPages);
                     $scope.gitPerfListItems = data.data.data;
                     console.log('           $scope.gitPerfListItems  = ');  console.dir($scope.gitPerfListItems);
 
-                    var newHeight = $(window).height()- 220 - $(".TeamPerformanceList-TopHeight").height();
-                    $("#TeamPerformanceList-table").find("tbody").css({"max-height":newHeight+"px"});
+                    $scope.setScrollHeight('TeamPerformanceList');
                 } else {
                     $scope.loading = 'loaded';
                     toastr.error('TeamPerformanceList: 出错了 ' + data.data.msg);
@@ -75,6 +70,10 @@ function($scope,  $http,   _,  $rootScope,  ngDialog,  $ocLazyLoad,  toastr,  Di
     };
     $scope.search(); //初始化查询
 
+    $scope.setScrollHeight = function(domName){
+        var newHeight = $(window).height()- 220 - $("." + domName + "-TopHeight").height();
+        $("#"+ domName + "-table").find("tbody").css({"max-height":newHeight+"px"});
+    };
 
 
     $scope.sortBy = function(sortField){

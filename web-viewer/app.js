@@ -163,18 +163,29 @@ app.post('/login',
     }
 );
 
+app.get('/logout',
+    function (req, res, next) {
+        if( req.isAuthenticated() ){
+            req.logout();
+        }
+        res.redirect('/login');
+    }
+);
+
 
 
 
 //  =========== 以下是动态路由部分 ==============
 app.use('/', indexRouter);
-app.use('/TeamPerformance', TeamPerformanceRouter);
+// app.use('/TeamPerformance', TeamPerformanceRouter);
+app.use('/TeamPerformance', auth.ensureAuthenticatedUrl, TeamPerformanceRouter);
+// app.use('/AuthedPages', auth.ensureAuthenticatedUrl, pagesRouter);
 
-app.use('/users', usersRouter);
+// app.use('/users', usersRouter);
+// app.use('/pages', pagesRouter);
 
 
-// app.use('/', pagesRouter);
-app.use('/pages', pagesRouter);
+
 
 
 

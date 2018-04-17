@@ -40,8 +40,8 @@
             <div class="row loginPrompt">
                 <h2><%=ui.page_title%> - 登录：</h2>
             </div>
-            <div class="row"><input name="username" class="form-control" placeholder="用户名" type="text" value="admin" id="username"></div>
-            <div class="row"><input name="password" class="form-control" placeholder="密码" type="password" value="xxxxxx" id="password"></div>
+            <div class="row"><input name="username" class="form-control" placeholder="用户名" type="text" value="" id="username"></div>
+            <div class="row"><input name="password" class="form-control" placeholder="密码" type="password" value="" id="password"></div>
             <% if (enable_login_captcha == 1){ %>
                 <div class="row">
                     <div class="form-group no-border">
@@ -90,7 +90,7 @@
             $.post('/login', loginData, function(res,p2,p3){
                 // console.log('           res  = ');  console.dir(res);
                 if(res.result == true){
-                    window.location = '/pages';
+                    window.location = '/panel';
                 } else {
                     toastr.error(res.msg);
                 }
