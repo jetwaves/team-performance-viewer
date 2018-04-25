@@ -331,7 +331,8 @@ function ($scope,  $ocLazyLoad,  $http,  instance,  _,  $uibModal,  ngDialog,  $
 
 
     setTimeout(function(){
-        $scope.addTab('TeamPerformance','/TeamPerformance/list','/TeamPerformance/TeamPerformanceListController','list')
+        $scope.addTab('TeamPerformance','/TeamPerformance/list','/TeamPerformance/TeamPerformanceListController','list');
+        // $scope.addTab('ProjectSupervisor','/ProjectSupervisor/list','/ProjectSupervisor/ProjectSupervisorListController','list');
     }, 500);
 
     }]);

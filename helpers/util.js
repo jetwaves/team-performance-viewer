@@ -73,37 +73,49 @@ function setAssignDate(nums){
 }
 
 
-// pages                : 分页   X:Y   第X页，每页Y条记录
+// req :  express request object
+// req.body.pages                : 分页   X:Y   第X页，每页Y条记录
 // defaultItemPerPage   : 默认的每页记录数量
 //
 //      return :  skip, take        跳过的元素数量，要取得的元素数量
-function parsePaginateRule(pages, defaultItemPerPage){
+function parsePaginateRule(req, defaultItemPerPage){
     if(!defaultItemPerPage) defaultItemPerPage = 20;
     var pageNum = 1;
     var pageSize = defaultItemPerPage;
-    if(pages && pages.indexOf(':') > 0 ){
-        var arr = pages.split(':');
-        pageNum = arr[0];
-        pageSize = arr[1];
-    } else {
-        if(pages){
-            pageNum = pages;
+
+    if(req.body.pages){
+        let pages = req.body.pages;
+        if(pages && pages.indexOf(':') > 0 ){
+            var arr = pages.split(':');
+            pageNum = arr[0];
+            pageSize = arr[1];
+        } else {
+            if(pages){
+                pageNum = pages;
+            }
         }
+        var skipNum = (pageNum - 1)* pageSize;
+        if(typeof(skipNum) == 'string') skipNum = parseInt(skipNum);
+        if(typeof(pageSize) == 'string') pageSize = parseInt(pageSize);
+        return {skip: skipNum, limit : pageSize};
+    } else {
+        return {skip: 0, limit : defaultItemPerPage};
     }
-    var skipNum = (pageNum - 1)* pageSize;
-    //console.log('           typeof(skipNum)  = ');  console.dir(typeof(skipNum));
-    //console.log('           typeof(pageSize)  = ');  console.dir(typeof(pageSize));
-    if(typeof(skipNum) == 'string') skipNum = parseInt(skipNum);
-    if(typeof(pageSize) == 'string') pageSize = parseInt(pageSize);
-    return {skip: skipNum, limit : pageSize};
+
 }
 
-function parseSortParam(sortParam){
-    let arr = sortParam.split(':');
-    let res = {};
-    res.arr[0] = arr[1];
-    return res;
+function parseSortParam(req){
+    if(req.body.sortParam && req.body.sortParam != undefined){
+        let arr = req.body.sortParam.split(':');
+        let res = {};
+        // res = undefined;
+        res[arr[0]] = parseInt(arr[1]);     // 注意这里的升序降序标记的1 和-1 必须是int
+        return res;
+    }
+    return {};
 }
+
+
 
 function parseStartEndTime(reqBody){
     let ret = undefined;

@@ -1,0 +1,88 @@
+<!-- 人员档案 by Hisheng -->
+<div class="staff container-fluid" id="staff" ng-controller="ProjectSupervisorListController">
+    <div class="loading" ng-if="loading=='loading'"><img src="/public/images/loading.gif" alt=""></div>
+    <div class="ProjectSupervisorList-TopHeight">
+        <div class="row" style="margin-top:5px;">
+            <div class="col-sm-1">
+                <button type="button" class="btn defaultBtn" ng-click="search()">查询 <i class="glyphicon glyphicon-search"></i></button>
+            </div>
+            <div class="col-sm-1"><button class="btn defaultBtn" ng-click="resetParams()">清空 <i class="glyphicon glyphicon-retweet"></i></button></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <label>项目名称</label>
+                <input type="text" class="form-control projectName" placeholder="项目名称" ng-model="params.projectName">
+            </div>
+            <div class="col-sm-2">
+                <label>仓库名称</label>
+                <input type="text" class="form-control repoName" placeholder="仓库名称" ng-model="params.repoName">
+            </div>
+            <div class="col-sm-2">
+                <label>项目位置</label>
+                <input type="text" class="form-control projectFolder" placeholder="项目位置" ng-model="params.projectFolder">
+            </div>
+        </div>
+    </div>
+    <table class="tableClass table-bordered" id="ProjectSupervisorList-table">
+        <tr class="pos-i">
+            <th class="projectName" ng-click="sortBy('projectName')">截止日期<i class="glyphicon glyphicon-sort"></i>  </th>
+            <th class="repoName" ng-click="sortBy('repoName')">用户名称<i class="glyphicon glyphicon-sort"></i>  </th>
+            <th class="projectFolder" ng-click="sortBy('projectFolder')">提交内容<i class="glyphicon glyphicon-sort"></i>  </th>
+            <th class="lastUpdate" ng-click="sortBy('lastUpdate')">最近更新时间<i class="glyphicon glyphicon-sort"></i>  </th>
+
+
+            <th class="project" ng-click="sortBy('project')">项目名称<i class="glyphicon glyphicon-sort"></i>  </th>
+            <th class="branch" ng-click="sortBy('branch')">分支名称<i class="glyphicon glyphicon-sort"></i>  </th>
+            <th class="hash" ng-click="sortBy('hash')">hash<i class="glyphicon glyphicon-sort"></i>  </th>
+
+        </tr>
+        <tbody>
+        <tr ng-repeat="gitPerf in gitPerfListItems" class="{{gitPerf.hash}}">
+            <td>{{gitPerf.projectName}}</td>
+            <td>{{gitPerf.repoName}}</td>
+            <td>{{gitPerf.projectFolder}}
+            <td>{{gitPerf.lastUpdate}}
+        </tr>
+        </tbody>
+        <tr class="tfootClass">
+            <th>--</th>
+            <th>--</th>
+            <th>--</th>
+            <th>--</th>
+        </tr>
+    </table>
+
+    <div class="pospage">
+        <div class="col-md-6">
+            <uib-pagination boundary-links="true" total-items="totalItems" max-size='10'
+                            ng-change="pageChanged()" ng-model="current_page" items-per-page="nums_per_page"
+                            class="pagination-sm" previous-text="上页" next-text="下页" first-text="首页"
+                            last-text="末页" force-ellipses="true" rotate="true" boundary-link-numbers="true">
+            </uib-pagination>
+        </div>
+
+        <div class="col-md-1">
+            <div style="margin-top:20px;">
+                <select class="form-control" ng-model="nums_per_page" ng-change="pageChanged()" id="itemsPerPage">
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                    <option value="1000">1000</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-md-1">
+            <div class="input-group" style="margin-top:20px;">
+                <input type="text" class="form-control" placeholder="page" ng-model="current_page">
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="pageChanged()">Go!</button>
+                </span>
+            </div>
+        </div>
+        <div class="col-md-2" style="padding-top:25px;text-align:center">共[ <b>{{totalItems}}</b> ]条记录 - {{nums_per_page}} 条/页</div>
+        <div class="col-md-1" style="padding-top:25px;text-align:center">{{current_page}} / {{numPages}}</div>
+    </div>
+</div>
+

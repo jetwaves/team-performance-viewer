@@ -14,7 +14,7 @@ var usersRouter = require('./routes/users');
 
 var pagesRouter = require('./routes/pages');
 var TeamPerformanceRouter = require('./routes/TeamPerformance');
-
+var ProjectSupervisorRouter = require('./routes/ProjectSupervisor');
 
 var app = express();
 
@@ -38,6 +38,17 @@ app.use(session({
     maxAge : 86400
 
 }));
+
+
+// 声明数据库连接
+let mongojs = require('mongojs');
+// let db = mongojs('userName:userPassword@hostName/DatabaseName', ['collectionName']);  // like // let db = mongojs('git:123456@127.0.0.1/gitperf', ['test']);
+let db = mongojs( localConfig.mongoDB.user + ':' + localConfig.mongoDB.password + '@'
+                + localConfig.mongoDB.host + ':' + localConfig.mongoDB.port     + '/'
+                + localConfig.mongoDB.db, [ localConfig.mongoDB.collection]);
+app.locals.mongodb = db;        // 全局变量。     从路由中的  req.app.locals.mongodb  可以访问到
+
+
 
 // 声明passport中间件的 LocalStrategy 本地（自定义）鉴权策略
 passport.use(new LocalStrategy({passReqToCallback: true},
@@ -109,14 +120,14 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-app.use(function (req, res, next) {
-    req.settings = app.settings;
-    if (req.user) {           // 登录后把用户身份加入req.body
-        req.body.DRC_user_gid = req.user.gid;                   // 用户gid
-    }
-    //console.dir(req.settings);
-    next();
-});
+// app.use(function (req, res, next) {
+//     req.settings = app.settings;
+//     if (req.user) {           // 登录后把用户身份加入req.body
+//         req.body.DRC_user_gid = req.user.gid;                   // 用户gid
+//     }
+//     //console.dir(req.settings);
+//     next();
+// });
 
 app.get('/favicon.ico', function(req, res){
     res.end();
@@ -179,6 +190,8 @@ app.get('/logout',
 app.use('/', indexRouter);
 // app.use('/TeamPerformance', TeamPerformanceRouter);
 app.use('/TeamPerformance', auth.ensureAuthenticatedUrl, TeamPerformanceRouter);
+// app.use('/ProjectSupervisor', auth.ensureAuthenticatedUrl, ProjectSupervisorRouter);
+app.use('/ProjectSupervisor',  ProjectSupervisorRouter);
 // app.use('/AuthedPages', auth.ensureAuthenticatedUrl, pagesRouter);
 
 // app.use('/users', usersRouter);
