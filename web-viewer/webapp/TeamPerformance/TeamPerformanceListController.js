@@ -38,6 +38,9 @@ function($scope,  $http,   _,  $rootScope,  ngDialog,  $ocLazyLoad,  toastr,  Di
     $scope.search = function(type){
         $scope.loading = 'loading';
         var postData = {};          // 注意这里要用对象不能用数组 [];
+        if($scope.params.sortParam !== '') postData.sortParam = $scope.params.sortParam;
+        postData.pages = $scope.current_page +':'+$scope.nums_per_page;
+
         if(moment($scope.params.start_time).isValid()) postData.start_time = moment($scope.params.start_time).format('X');
         if(moment($scope.params.end_time).isValid()) postData.end_time = moment($scope.params.end_time).format('X');
         if($scope.params.author !== '') postData.author = $scope.params.author;
@@ -45,31 +48,32 @@ function($scope,  $http,   _,  $rootScope,  ngDialog,  $ocLazyLoad,  toastr,  Di
         if($scope.params.project !== '') postData.project = $scope.params.project;
         if($scope.params.branch !== '') postData.branch = $scope.params.branch;
         if($scope.params.hash !== '') postData.hash = $scope.params.hash;
-        if($scope.params.sortParam !== '') postData.sortParam = $scope.params.sortParam;
-        postData.pages = $scope.current_page +':'+$scope.nums_per_page;
 
         $http.post('/TeamPerformance/search', postData).
             then(function(data, status, headers, config) {
+                $scope.loading = 'loaded';
                 if(data.status === 200){
-                    $scope.loading = 'loaded';
-                    $scope.totalItems = data.data.count;
-                    $scope.numPages = Math.ceil(data.data.count / $scope.nums_per_page);
-                    $scope.gitPerfListItems = data.data.data;
-                    console.log('           $scope.gitPerfListItems  = ');  console.dir($scope.gitPerfListItems);
-
+                    console.log('           data.data  = ');  console.dir(data.data);
+                    if(data.data.result === 'false'){
+                        toastr.error(data.data.msg);
+                    } else {
+                        // 得到结果后的数据绑定
+                        $scope.totalItems = data.data.count;
+                        $scope.numPages = Math.ceil(data.data.count / $scope.nums_per_page);
+                        $scope.gitPerfListItems = data.data.data;
+                        console.log('           $scope.gitPerfListItems  = ');  console.dir($scope.gitPerfListItems);
+                    }
                     $scope.setScrollHeight('TeamPerformanceList');
-                } else {
-                    $scope.loading = 'loaded';
-                    toastr.error('TeamPerformanceList: 出错了 ' + data.data.msg);
-                }
-            }).
-            catch(function(data, status, headers, config) {
-                console.log('           err data  = ');  console.dir(data);
-                toastr.error('TeamPerformanceList: 网络出错了 ' + data.data.msg);
+                } else {    toastr.error('TeamPerformanceList: 出错了 ' + data.data.msg);  }
+            }).catch(function(data, status, headers, config) {
+                toastr.error('TeamPerformanceList: 网络出错了 ' + data.data.msg);   console.log('           err data  = ');  console.dir(data);
             });
     };
     $scope.search(); //初始化查询
 
+
+
+    //-------------------------UI 相关公用方法------------------------------
     $scope.setScrollHeight = function(domName){
         var newHeight = $(window).height()- 220 - $("." + domName + "-TopHeight").height();
         $("#"+ domName + "-table").find("tbody").css({"max-height":newHeight+"px"});

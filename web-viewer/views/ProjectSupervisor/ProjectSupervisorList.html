@@ -7,6 +7,9 @@
                 <button type="button" class="btn defaultBtn" ng-click="search()">查询 <i class="glyphicon glyphicon-search"></i></button>
             </div>
             <div class="col-sm-1"><button class="btn defaultBtn" ng-click="resetParams()">清空 <i class="glyphicon glyphicon-retweet"></i></button></div>
+            <div class="col-sm-1">
+                <button type="button" class="btn defaultBtn" ng-click="add()">新建监控 <i class="glyphicon glyphicon-edit"></i></button>
+            </div>
         </div>
         <div class="row">
             <div class="col-sm-2">
@@ -28,23 +31,29 @@
             <th class="projectName" ng-click="sortBy('projectName')">截止日期<i class="glyphicon glyphicon-sort"></i>  </th>
             <th class="repoName" ng-click="sortBy('repoName')">用户名称<i class="glyphicon glyphicon-sort"></i>  </th>
             <th class="projectFolder" ng-click="sortBy('projectFolder')">提交内容<i class="glyphicon glyphicon-sort"></i>  </th>
+            <th class="branches" ng-click="sortBy('branches')">监控代码分支列表<i class="glyphicon glyphicon-sort"></i>  </th>
             <th class="lastUpdate" ng-click="sortBy('lastUpdate')">最近更新时间<i class="glyphicon glyphicon-sort"></i>  </th>
-
-
-            <th class="project" ng-click="sortBy('project')">项目名称<i class="glyphicon glyphicon-sort"></i>  </th>
-            <th class="branch" ng-click="sortBy('branch')">分支名称<i class="glyphicon glyphicon-sort"></i>  </th>
-            <th class="hash" ng-click="sortBy('hash')">hash<i class="glyphicon glyphicon-sort"></i>  </th>
-
+            <th class="operation" >操作<i class="glyphicon glyphicon-sort"></i>  </th>
         </tr>
         <tbody>
-        <tr ng-repeat="gitPerf in gitPerfListItems" class="{{gitPerf.hash}}">
-            <td>{{gitPerf.projectName}}</td>
-            <td>{{gitPerf.repoName}}</td>
-            <td>{{gitPerf.projectFolder}}
-            <td>{{gitPerf.lastUpdate}}
+        <tr ng-repeat="oneProject in projectSupervisorListItems" class="{{oneProject.projectName}}">
+            <td>{{oneProject.projectName}}</td>
+            <td>{{oneProject.repoName}}</td>
+            <td>{{oneProject.projectFolder}}</td>
+            <td>{{oneProject.branches}}</td>
+            <td>{{oneProject.lastUpdate}}</td>
+            <td>
+                <div class="row">
+                    <div class="col-sm-5"><div class="btn btn-default"  ng-click="deleteProject(oneProject.projectName)">删除</div></div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-5"><div class="btn btn-default"  ng-click="modifyProject(oneProject.projectName)">删除</div></div>
+                </div>
+            </td>
         </tr>
         </tbody>
         <tr class="tfootClass">
+            <th>--</th>
+            <th>--</th>
             <th>--</th>
             <th>--</th>
             <th>--</th>

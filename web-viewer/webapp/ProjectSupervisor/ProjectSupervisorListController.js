@@ -30,61 +30,67 @@ function($scope,  $http,   _,  $rootScope,  ngDialog,  $ocLazyLoad,  toastr,  Di
     $scope.search = function(type){
         $scope.loading = 'loading';
         var postData = {};          // 注意这里要用对象不能用数组 [];
-        if(moment($scope.params.start_time).isValid()) postData.start_time = moment($scope.params.start_time).format('X');
-        if(moment($scope.params.end_time).isValid()) postData.end_time = moment($scope.params.end_time).format('X');
-
+        if($scope.params.sortParam !== '') postData.sortParam = $scope.params.sortParam;
+        postData.pages = $scope.current_page +':'+$scope.nums_per_page;
 
         if($scope.params.projectName !== '') postData.projectName = $scope.params.projectName;
         if($scope.params.repoName !== '') postData.repoName = $scope.params.repoName;
         if($scope.params.projectFolder !== '') postData.projectFolder = $scope.params.projectFolder;
 
-        postData.pages = $scope.current_page +':'+$scope.nums_per_page;
-
         $http.post('/ProjectSupervisor/search', postData).
-            then(function(data, status, headers, config) {
-                if(data.status === 200){
-                    $scope.loading = 'loaded';
+        then(function(data, status, headers, config) {
+            $scope.loading = 'loaded';
+            if(data.status === 200){
+                console.log('           data.data  = ');  console.dir(data.data);
+                if(data.data.result === 'false'){
+                    toastr.error(data.data.msg);
+                } else {
+                    // 得到结果后的数据绑定
                     $scope.totalItems = data.data.count;
                     $scope.numPages = Math.ceil(data.data.count / $scope.nums_per_page);
-                    $scope.ProjectSupervisor = data.data.data;
-                    console.log('           $scope.ProjectSupervisor  = ');  console.dir($scope.ProjectSupervisor);
-
-                    $scope.setScrollHeight('ProjectSupervisorList');
-                } else {
-                    $scope.loading = 'loaded';
-                    toastr.error('ProjectSupervisorList: 出错了 ' + data.data.msg);
+                    $scope.projectSupervisorListItems = data.data.data;
+                    console.log('           $scope.projectSupervisorListItems  = ');  console.dir($scope.projectSupervisorListItems);
                 }
-            }).
-            catch(function(data, status, headers, config) {
-                console.log('           err data  = ');  console.dir(data);
-                toastr.error('ProjectSupervisorList: 网络出错了 ' + data.data.msg);
-            });
+                $scope.setScrollHeight('ProjectSupervisorList');
+            } else {    toastr.error('ProjectSupervisorList: 出错了 ' + data.data.msg);  }
+        }).catch(function(data, status, headers, config) {
+            toastr.error('ProjectSupervisorList: 网络出错了 ' + data.data.msg);   console.log('           err data  = ');  console.dir(data);
+        });
     };
     $scope.search(); //初始化查询
 
+
+    $scope.deleteProject = function(param){
+        console.log('           deleteProject   param  = ');  console.dir(param);
+    };
+
+    $scope.modifyProject = function(param){
+        console.log('           modifyProject   param  = ');  console.dir(param);
+    };
+
+
+
+
+    //-------------------------UI 相关公用方法------------------------------
     $scope.setScrollHeight = function(domName){
         var newHeight = $(window).height()- 220 - $("." + domName + "-TopHeight").height();
         $("#"+ domName + "-table").find("tbody").css({"max-height":newHeight+"px"});
     };
 
-
     $scope.sortBy = function(sortField){
         var className = $("."+sortField).find("i").attr("class");
         if(className === 'glyphicon glyphicon-sort' || className === 'glyphicon glyphicon-circle-arrow-down'){
             $(".tableClass").find("i").attr("class",'glyphicon glyphicon-sort');
-            console.log('执行升序');
             $("."+sortField).find("i").attr("class","glyphicon glyphicon-circle-arrow-up");
             $scope.params.sortParam = sortField + ':1';
-            console.log('           $scope.sortParam  = ');  console.dir($scope.sortParam);
+            console.log('执行升序');    console.log('           $scope.sortParam  = ');  console.dir($scope.sortParam);
         }else if(className === 'glyphicon glyphicon-circle-arrow-up'){
             $(".tableClass").find("i").attr("class",'glyphicon glyphicon-sort');
-            console.log('执行降序');
             $("."+sortField).find("i").attr("class","glyphicon glyphicon-circle-arrow-down");
-            $scope.params.sortParam = sortField + ':-1';
+            console.log('执行降序');    $scope.params.sortParam = sortField + ':-1';
         }
         $scope.search(); //执行查询操作
     };
-
 
     //------------------处理列表分页---------------------
     $scope.pageChanged = function() {
