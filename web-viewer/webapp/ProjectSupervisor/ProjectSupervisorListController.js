@@ -60,6 +60,40 @@ function($scope,  $http,   _,  $rootScope,  ngDialog,  $ocLazyLoad,  toastr,  Di
     $scope.search(); //初始化查询
 
 
+    $scope.addSupervisor = function(){
+        $ocLazyLoad.load(['/webapp/ProjectSupervisor/ProjectSupervisorEditController.js']).then(function(){
+            ngDialog.openConfirm({
+                template: '/webapp/ProjectSupervisor/ProjectSupervisorEdit.html',
+                className: 'ngdialog-theme-default dialog-width-xlg', //弹窗的类名
+                controller : 'ProjectSupervisorEditController',
+                preCloseCallback: function(){ //关闭前的触发事件
+                    //return confirm('你确定要退出吗？');
+                    return true;
+                },
+                closeByDocument: false, closeByEscape: false, showClose: true, //显示关闭按钮
+                scope: $scope,  appendTo: '', //绑定到哪个元素节点
+                resolve: { //将所需参数传递给弹窗的控制器
+                    params : function(){
+                        return {
+                            dialog_title : 'some title',
+
+                        };
+                    }
+                }
+            }).then(function (result) {
+                console.log('ProjectSupervisorEditController.addSupervisor 接收到的弹窗返回值是\n')
+                console.log(result);
+            }, function (error) {
+                console.log('ProjectSupervisorEditController.addSupervisor 接收到的弹窗错误信息是\n')
+                console.log(error);
+            });
+        }, function(e){
+            console.log('ProjectSupervisorEditController.addSupervisor 接收到的弹窗异常信息是\n')
+            console.log(e);
+        });
+    };
+
+
     $scope.deleteProject = function(param){
         console.log('           deleteProject   param  = ');  console.dir(param);
     };
@@ -68,6 +102,9 @@ function($scope,  $http,   _,  $rootScope,  ngDialog,  $ocLazyLoad,  toastr,  Di
         console.log('           modifyProject   param  = ');  console.dir(param);
     };
 
+    $scope.refreshProject = function(param){
+        console.log('           modifyProject   param  = ');  console.dir(param);
+    };
 
 
 
