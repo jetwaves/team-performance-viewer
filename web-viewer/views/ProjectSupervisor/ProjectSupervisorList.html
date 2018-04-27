@@ -8,7 +8,7 @@
             </div>
             <div class="col-sm-1"><button class="btn defaultBtn" ng-click="resetParams()">清空 <i class="glyphicon glyphicon-retweet"></i></button></div>
             <div class="col-sm-1">
-                <button type="button" class="btn defaultBtn" ng-click="addSupervisor()">新建监控 <i class="glyphicon glyphicon-edit"></i></button>
+                <button type="button" class="btn defaultBtn" ng-click="updateProjectSupervisor('add', '')">新建监控 <i class="glyphicon glyphicon-edit"></i></button>
             </div>
         </div>
         <div class="row">
@@ -44,10 +44,10 @@
             <td>{{oneProject.lastUpdate}}</td>
             <td>
                 <div class="row">
-                    <div class="col-sm-3"><div class="btn btn-default"  ng-click="deleteProject(oneProject.projectName)">删除</div></div>
-                    <div class="col-sm-3"><div class="btn btn-default"  ng-click="modifyProject(oneProject.projectName)">修改</div></div>
+                    <div class="col-sm-3"><div class="btn btn-default"  ng-click="deleteProjectSupervisor(oneProject._id)">删除</div></div>
+                    <div class="col-sm-3"><div class="btn btn-default"  ng-click="updateProjectSupervisor('update', oneProject._id) ">修改</div></div>
                     <div class="col-sm-1"></div>
-                    <div class="col-sm-3"><div class="btn btn-default"  ng-click="refreshProject(oneProject.projectName)">更新日志</div></div>
+                    <div class="col-sm-3"><div class="btn btn-default"  ng-click="refreshProjectSupervisor(oneProject._id)">更新日志</div></div>
                 </div>
             </td>
         </tr>

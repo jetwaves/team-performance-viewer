@@ -49,7 +49,7 @@ function($scope,  $http,   _,  $rootScope,  ngDialog,  $ocLazyLoad,  toastr,  Di
                     $scope.totalItems = data.data.count;
                     $scope.numPages = Math.ceil(data.data.count / $scope.nums_per_page);
                     $scope.projectSupervisorListItems = data.data.data;
-                    console.log('           $scope.projectSupervisorListItems  = ');  console.dir($scope.projectSupervisorListItems);
+                    // console.log('           $scope.projectSupervisorListItems  = ');  console.dir($scope.projectSupervisorListItems);
                 }
                 $scope.setScrollHeight('ProjectSupervisorList');
             } else {    toastr.error('ProjectSupervisorList: 出错了 ' + data.data.msg);  }
@@ -60,14 +60,20 @@ function($scope,  $http,   _,  $rootScope,  ngDialog,  $ocLazyLoad,  toastr,  Di
     $scope.search(); //初始化查询
 
 
-    $scope.addSupervisor = function(){
+    $scope.updateProjectSupervisor = function(action, idToUpdate){
+        console.log('           action  = ');  console.dir(action);
+        console.log('           idToUpdate  = ');  console.dir(idToUpdate);
+        var item = _.find($scope.projectSupervisorListItems, function(item){
+            return item._id = idToUpdate;
+        });
+        console.log('           item  = ');  console.dir(item);
         $ocLazyLoad.load(['/webapp/ProjectSupervisor/ProjectSupervisorEditController.js']).then(function(){
             ngDialog.openConfirm({
                 template: '/webapp/ProjectSupervisor/ProjectSupervisorEdit.html',
                 className: 'ngdialog-theme-default dialog-width-xlg', //弹窗的类名
                 controller : 'ProjectSupervisorEditController',
                 preCloseCallback: function(){ //关闭前的触发事件
-                    //return confirm('你确定要退出吗？');
+                    // return confirm('你确定要退出吗？');
                     return true;
                 },
                 closeByDocument: false, closeByEscape: false, showClose: true, //显示关闭按钮
@@ -75,35 +81,46 @@ function($scope,  $http,   _,  $rootScope,  ngDialog,  $ocLazyLoad,  toastr,  Di
                 resolve: { //将所需参数传递给弹窗的控制器
                     params : function(){
                         return {
-                            dialog_title : 'some title',
-
+                            dialog_title    : '新建项目监控',
+                            action          : action,
+                            itemToUpdate      : _.find($scope.projectSupervisorListItems, function(item){
+                                return item._id = idToUpdate;
+                            })
                         };
                     }
                 }
-            }).then(function (result) {
-                console.log('ProjectSupervisorEditController.addSupervisor 接收到的弹窗返回值是\n')
-                console.log(result);
-            }, function (error) {
-                console.log('ProjectSupervisorEditController.addSupervisor 接收到的弹窗错误信息是\n')
-                console.log(error);
+            }).then(function (result){
+                console.log('           result  = ');  console.dir(result);
+                $scope.search();
+            }).catch(function(error){
+                // console.log('           error  = ');  console.dir(error);
+                // toastr.error(error.msg);
             });
         }, function(e){
-            console.log('ProjectSupervisorEditController.addSupervisor 接收到的弹窗异常信息是\n')
-            console.log(e);
+            console.log('ProjectSupervisorEditController.addSupervisor 接收到的弹窗异常信息是\n');console.dir(e);
         });
     };
 
 
-    $scope.deleteProject = function(param){
-        console.log('           deleteProject   param  = ');  console.dir(param);
+    $scope.deleteProjectSupervisor = function(param){
+        console.log('           deleteProjectSupervisor   param  = ');  console.dir(param);
+        $http.post('/ProjectSupervisor/remove', {id: param}).
+            then(function(data, status, headers, config) {
+                console.log('           data  = ');  console.dir(data);
+                console.log('           status  = ');  console.dir(status);
+                toastr.info('   已成功删除');
+                $scope.search();
+            }).
+            catch(function(data, status, headers, config) {
+                toastr.error(data.msg);
+            });
     };
 
-    $scope.modifyProject = function(param){
-        console.log('           modifyProject   param  = ');  console.dir(param);
-    };
 
-    $scope.refreshProject = function(param){
-        console.log('           modifyProject   param  = ');  console.dir(param);
+    $scope.refreshProjectSupervisor = function(param){
+        console.log('           refreshProjectSupervisor   param  = ');  console.dir(param);
+
+
     };
 
 
