@@ -54,31 +54,30 @@
     </div>
     <table class="tableClass table-bordered" id="TeamPerformanceList-table">
         <tr class="pos-i">
-            <th class="date" ng-click="sortBy('date')">截止日期<i class="glyphicon glyphicon-sort"></i>  </th>
-            <th class="author" ng-click="sortBy('author')">用户名称<i class="glyphicon glyphicon-sort"></i>  </th>
-            <th class="msg" ng-click="sortBy('msg')">提交内容<i class="glyphicon glyphicon-sort"></i>  </th>
-            <th class="project" ng-click="sortBy('project')">项目名称<i class="glyphicon glyphicon-sort"></i>  </th>
-            <th class="branch" ng-click="sortBy('branch')">分支名称<i class="glyphicon glyphicon-sort"></i>  </th>
-            <th class="hash" ng-click="sortBy('hash')">hash<i class="glyphicon glyphicon-sort"></i>  </th>
-
+            <th width='20%'class="date" ng-click="sortBy('date')">截止日期<i class="glyphicon glyphicon-sort"></i>  </th>
+            <th width='10%'class="author" ng-click="sortBy('author')">用户名称<i class="glyphicon glyphicon-sort"></i>  </th>
+            <th width='40%'class="msg" ng-click="sortBy('msg')">提交内容<i class="glyphicon glyphicon-sort"></i>  </th>
+            <th width='10%'class="project" ng-click="sortBy('project')">项目名称<i class="glyphicon glyphicon-sort"></i>  </th>
+            <th width='10%'class="branch" ng-click="sortBy('branch')">分支名称<i class="glyphicon glyphicon-sort"></i>  </th>
+            <th width='20%'class="hash" ng-click="sortBy('hash')">hash<i class="glyphicon glyphicon-sort"></i>  </th>
         </tr>
         <tbody>
         <tr ng-repeat="gitPerf in gitPerfListItems" class="{{gitPerf.hash}}">
-            <td>{{gitPerf.dateStr}}</td>
-            <td>{{gitPerf.author}}</td>
-            <td>{{gitPerf.msg}}</td>
-            <td>{{gitPerf.project}}</td>
-            <td>{{gitPerf.branch}}</td>
-            <td>{{gitPerf.hash}}</td>
+            <td width='20%'>{{gitPerf.dateStr}}</td>
+            <td width='10%'>{{gitPerf.author}}</td>
+            <td width='40%'>{{gitPerf.msg}}</td>
+            <td width='10%'>{{gitPerf.project}}</td>
+            <td width='10%'>{{gitPerf.branch}}</td>
+            <td width='20%'>{{gitPerf.hash}}</td>
         </tr>
         </tbody>
         <tr class="tfootClass">
-            <th>--</th>
-            <th>--</th>
-            <th>--</th>
-            <th>--</th>
-            <th>--</th>
-            <th>--</th>
+            <th width='20%'>--</th>
+            <th width='10%'>--</th>
+            <th width='40%'>--</th>
+            <th width='10%'>--</th>
+            <th width='10%'>--</th>
+            <th width='20%'>--</th>
         </tr>
     </table>
 

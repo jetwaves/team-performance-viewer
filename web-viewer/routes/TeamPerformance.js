@@ -19,7 +19,7 @@ function teamPerformanceList(req,res){
 
 function search(req,res,next){
     try{
-        // console.log('           TeamPerformance/search      req.body  = ');  console.dir(req.body);
+        console.log('           TeamPerformance/search      req.body  = ');  console.dir(req.body);
         let queryParam = {};
         let queryDate = undefined;
         if(queryDate = util.parseStartEndTime(req.body)) queryParam.date = queryDate;
@@ -35,7 +35,7 @@ function search(req,res,next){
         // console.log('           TeamPerformance/search      sortParam  = ');  console.dir(sortParam);
         // console.log('           TeamPerformance/search      queryParam  = ');  console.dir(queryParam);
 
-        let col = req.app.locals.mongodb.collection('test');
+        let col = req.app.locals.mongodb.collection('logs');
         col.count(queryParam, function(cntErr, cntRes){                                          // 先统计总数
             col.find(queryParam).sort(sortParam).skip(paginate.skip).limit(paginate.limit).toArray(function(err, docs){   // 再分页获取结果数据集
                 if(err) {
