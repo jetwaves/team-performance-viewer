@@ -7,7 +7,7 @@ require.config({
         'jquery'                 : '../public/javascripts/jquery-1.9.1.min',
         'ngLocale'               : '../public/javascripts/angular-locale_zh-cn',
         'ngConfirm'              : '../public/javascripts/ngConfirm',  /*自己改过z-index的 ngConfirm */
-        'angular'                : '../fe/angular/angular.min',
+        'angular'                : '../public/javascripts/angular1.7.9.min',
         'amMoment'               : '../fe/angular-moment/angular-moment.min',
         'ngAnimate'              : '../fe/angular-animate/angular-animate.min',
         'ngCheckbox'             : '../fe/angular-bootstrap-checkbox/angular-bootstrap-checkbox',

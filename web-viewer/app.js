@@ -42,6 +42,7 @@ app.use(session({
 // 声明passport中间件的 LocalStrategy 本地（自定义）鉴权策略
 passport.use(new LocalStrategy({passReqToCallback: true},
     function(req,username, password, done) {
+
         console.log('  LocalStrategy()      start ');
         auth.checkUser(req,username, password,function(err, res){
             // console.log('  LocalStrategy()      checkUser callback()  ');
@@ -57,6 +58,8 @@ passport.use(new LocalStrategy({passReqToCallback: true},
                 }
             }
         });
+
+
     }
 ));
 
@@ -78,12 +81,12 @@ app.use(cookieParser());
 
 //  =========== 以下是静态路由部分 ==============
 app.use('/public', express.static(__dirname + '/public'));                        // 映射public 目录
-app.use('/fe', express.static(path.join( path.dirname(__dirname), 'bower_components')) ); // 映射Bower 静态目录
+app.use('/fe', express.static(path.join( path.dirname(__dirname), 'node_modules')) ); // 映射Bower 静态目录
 app.use('/vc', express.static(path.join( __dirname, 'webapp', 'vc')) );           // 映射Vuejs controller 静态目录
 app.use('/webapp', express.static(path.join( __dirname, 'webapp')) );           // 映射Vuejs controller 静态目录
 
-app.use('/webapp/moment.js', express.static(path.join( path.dirname(__dirname), 'bower_components','moment','min','moment.min.js')) ); // 映射Bower 静态目录
-app.use('/webapp/angular-sanitize.js', express.static(path.join( path.dirname(__dirname), 'bower_components','angular-sanitize','angular-sanitize.min.js')) ); // 映射Bower 静态目录
+app.use('/webapp/moment.js', express.static(path.join( path.dirname(__dirname), 'node_modules','moment','min','moment.min.js')) ); // 映射Bower 静态目录
+app.use('/webapp/angular-sanitize.js', express.static(path.join( path.dirname(__dirname), 'node_modules','angular-sanitize','angular-sanitize.min.js')) ); // 映射Bower 静态目录
 
 
 
