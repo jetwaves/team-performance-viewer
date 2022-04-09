@@ -52,7 +52,7 @@
     "json-bigint": "^0.2.3",
     "lodash": "^4.17.19",
     "log4js": "^2.5.3",
-    "moment": "^2.22.0",
+    "moment": "^2.29.2",
     "mongodb": "^3.0.5",
     "mongojs": "^2.5.0",
     "morgan": "~1.9.0",
