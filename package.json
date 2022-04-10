@@ -50,7 +50,7 @@
     "http-errors": "~1.6.2",
     "jshashes": "^1.0.7",
     "json-bigint": "^0.2.3",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "log4js": "^2.5.3",
     "moment": "^2.29.2",
     "mongodb": "^3.0.5",
